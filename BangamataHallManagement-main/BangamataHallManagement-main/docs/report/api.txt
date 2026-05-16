@@ -1,0 +1,33 @@
+starting balance:
+===============
+{
+    "balance": {
+        "sms": "17.840"
+    },
+    "usage": {
+        "total_usage": 0,
+        "current_month_usage": 0
+    },
+    "api_response_code": 200,
+    "api_response_message": "SUCCESS"
+}
+
+api: send-sms
+https://portal.adnsms.com/api/v1/secure/send-sms
+body:
+api_key:KEY-mplvzo0jvtyjczpuwrc578p7ydvgf2tv
+api_secret:DRA3TB0ANJWkQ39q
+request_type:SINGLE_SMS
+message_type:TEXT
+mobile:01531529204
+message_body:hello from sms api test 'send sms'
+
+response:
+{
+    "request_type": "SINGLE_SMS",
+    "campaign_uid": "C6189131710437848",
+    "sms_uid": "S0275481710437848",
+    "invalid_numbers": [],
+    "api_response_code": 200,
+    "api_response_message": "SUCCESS"
+}

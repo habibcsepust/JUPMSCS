@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
+    <h3 class="pb-2 pt-2 border-bottom border-2 border-dark">Dashboard</h3>
+
+    <div class="row">
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-primary text-center">
+                <i class="fas fa-users fa-4x"></i>
+                <h3>Total Students</h3>
+                <h3 id="TotalStudents"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-success text-center">
+                <i class="fas fa-user-plus fa-4x"></i>
+                <h3>Active Students</h3>
+                <h3 id="ActiveStudents"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-danger text-center">
+                <i class="fas fa-user-slash fa-4x"></i>
+                <h3>Inactive</h3>
+                <h3 id="InactiveStudents"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-warning text-center">
+                <i class="fas fa-building fa-4x"></i>
+                <h3>Total Rooms</h3>
+                <h3 id="TotalRooms"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-warning text-center">
+                <i class="fas fa-user fa-4x"></i>
+                <h3>Active Staffs</h3>
+                <h3 id="TotalActiveStaffs"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-primary text-center">
+                <i class="fas fa-bed fa-4x"></i>
+                <h3>Total Seats</h3>
+                <h3 id="TotalSeats"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-danger text-center">
+                <i class="fas fa-bed fa-4x"></i>
+                <h3>Allocated Seats</h3>
+                <h3 id="AllocatedSeats"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-success text-center">
+                <i class="fas fa-bed fa-4x"></i>
+                <h3>Available Seats</h3>
+                <h3 id="AvailableSeats"></h3>
+            </div>
+        </div>
+        <div class="col-md-4 py-2">
+            <div class="card p-3 bg-dark text-white text-center">
+                <i class="fas fa-credit-card fa-4x"></i>
+                <h3>Paid Year @DateTime.Now.Year </h3>
+                <h3 id="EstablishmentChargePaidThisYear"></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            fetchData();
+
+            function fetchData() {
+                $.ajax({
+                    url: '@Url.Action("GetStasData", "Dashboard")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.IsSuccess === true) {
+                            console.log(response)
+                            document.getElementById('TotalStudents').innerHTML = response.data.TotalStudents;
+                            document.getElementById('ActiveStudents').innerHTML = response.data.ActiveStudents;
+                            document.getElementById('InactiveStudents').innerHTML = response.data.InactiveStudents;
+                            document.getElementById('TotalRooms').innerHTML = response.data.TotalRooms;
+                            document.getElementById('TotalActiveStaffs').innerHTML = response.data.TotalActiveStaffs;
+                            document.getElementById('TotalSeats').innerHTML = response.data.TotalSeats;
+                            document.getElementById('AllocatedSeats').innerHTML = response.data.AllocatedSeats;
+                            document.getElementById('AvailableSeats').innerHTML = response.data.AvailableSeats;
+                            document.getElementById('EstablishmentChargePaidThisYear').innerHTML = response.data.EstablishmentChargePaidThisYear;
+                            animateNumber(document.getElementById('TotalStudents').innerText, 'TotalStudents');
+                            animateNumber(document.getElementById('ActiveStudents').innerText, 'ActiveStudents');
+                            animateNumber(document.getElementById('InactiveStudents').innerText, 'InactiveStudents');
+                            animateNumber(document.getElementById('TotalRooms').innerText, 'TotalRooms');
+                            animateNumber(document.getElementById('TotalActiveStaffs').innerText, 'TotalActiveStaffs');
+                            animateNumber(document.getElementById('TotalSeats').innerText, 'TotalSeats');
+                            animateNumber(document.getElementById('AllocatedSeats').innerText, 'AllocatedSeats');
+                            animateNumber(document.getElementById('AvailableSeats').innerText, 'AvailableSeats');
+                            animateNumber(document.getElementById('EstablishmentChargePaidThisYear').innerText, 'EstablishmentChargePaidThisYear');
+                        }
+                    },
+                    error: function (ex) {
+                        console.error('Error fetching data.' + ex);
+                    }
+                });
+            }
+
+            function animateNumber(maxCount, idname) {
+
+                $({ countNum: $('#count').text() }).animate({ countNum: maxCount }, {
+                    duration: 2000,
+                    easing: 'linear',
+                    step: function () {
+                        $('#' + idname).text(Math.floor(this.countNum));
+                    },
+                    complete: function () {
+                        $('#' + idname).text(maxCount);
+                    }
+                });
+            }
+        });
+    </script>
+    }

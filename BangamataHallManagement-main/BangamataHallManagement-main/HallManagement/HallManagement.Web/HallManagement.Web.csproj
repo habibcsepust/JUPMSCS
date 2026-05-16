@@ -1,0 +1,498 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\RemittanceReceiver\**" />
+    <Content Remove="Views\RemittanceReceiver\**" />
+    <EmbeddedResource Remove="Views\RemittanceReceiver\**" />
+    <None Remove="Views\RemittanceReceiver\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CourtController.cs" />
+    <Compile Remove="Controllers\CourtsController.cs" />
+    <Compile Remove="Controllers\ProductsController.cs" />
+    <Compile Remove="Controllers\ReceiverInfoController.cs" />
+    <Compile Remove="RdlcReports\CFormDataSet.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="RdlcReports\CFormDataSet.xsc" />
+    <None Remove="RdlcReports\CFormDataSet.xsd" />
+    <None Remove="RdlcReports\CFormDataSet.xss" />
+    <None Remove="RdlcReports\Form-C.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="RdlcReports\CFormDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CFormDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RdlcReports\CFormDataSet.xsc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RdlcReports\CFormDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CFormDataSet.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RdlcReports\CFormDataSet.xss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RdlcReports\Form-C.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization.WebForms" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="140.340.80" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.8" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.10.*" />
+    <PackageReference Include="Twilio.AspNet.Core" Version="8.0.2" />
+    <PackageReference Include="Twilio.AspNet.Mvc" Version="8.0.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\font-awesome\js\all.js" />
+    <None Include="wwwroot\lib\font-awesome\js\all.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.min.js" />
+    <None Include="wwwroot\lib\font-awesome\sprites\brands.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\regular.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\solid.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jqueryui\jquery-ui.js" />
+    <None Include="wwwroot\lib\jqueryui\jquery-ui.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\limonte-sweetalert2\sweetalert2.all.js" />
+    <None Include="wwwroot\lib\limonte-sweetalert2\sweetalert2.all.min.js" />
+    <None Include="wwwroot\lib\limonte-sweetalert2\sweetalert2.js" />
+    <None Include="wwwroot\lib\limonte-sweetalert2\sweetalert2.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\af.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\af.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ar.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ar.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\az.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\az.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bg.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bg.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bn.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bn.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bs.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\bs.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ca.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ca.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\cs.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\cs.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\da.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\da.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\de.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\de.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\dsb.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\dsb.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\el.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\el.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\en.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\en.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\es.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\es.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\et.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\et.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\eu.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\eu.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fa.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fa.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fi.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fi.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fr.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\fr.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\gl.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\gl.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\he.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\he.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hi.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hi.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hr.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hr.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hsb.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hsb.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hu.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hu.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hy.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\hy.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\id.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\id.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\is.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\is.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\it.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\it.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ja.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ja.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ka.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ka.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\km.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\km.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ko.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ko.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\lt.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\lt.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\lv.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\lv.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\mk.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\mk.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ms.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ms.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\nb.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\nb.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ne.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ne.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\nl.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\nl.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pl.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pl.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ps.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ps.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pt-BR.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pt-BR.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pt.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\pt.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ro.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ro.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ru.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\ru.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sk.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sk.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sl.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sl.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sq.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sq.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sr-Cyrl.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sr-Cyrl.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sr.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sr.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sv.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\sv.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\th.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\th.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\tk.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\tk.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\tr.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\tr.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\uk.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\uk.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\vi.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\vi.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\zh-CN.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\zh-CN.min.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\zh-TW.js" />
+    <None Include="wwwroot\lib\select2\js\i18n\zh-TW.min.js" />
+    <None Include="wwwroot\lib\select2\js\select2.full.js" />
+    <None Include="wwwroot\lib\select2\js\select2.full.min.js" />
+    <None Include="wwwroot\lib\select2\js\select2.js" />
+    <None Include="wwwroot\lib\select2\js\select2.min.js" />
+    <None Include="wwwroot\theme\assets\demo\chart-area-demo.js" />
+    <None Include="wwwroot\theme\assets\demo\chart-bar-demo.js" />
+    <None Include="wwwroot\theme\assets\demo\chart-pie-demo.js" />
+    <None Include="wwwroot\theme\assets\demo\datatables-demo.js" />
+    <None Include="wwwroot\theme\assets\img\error-404-monochrome.svg" />
+    <None Include="wwwroot\theme\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\theme\js\custom.js" />
+    <None Include="wwwroot\theme\js\datatables-simple-demo.js" />
+    <None Include="wwwroot\theme\js\scripts.js" />
+    <None Include="wwwroot\theme\startbootstrap-sb-admin-gh-pages.zip" />
+    <None Include="wwwroot\theme\vendors\chartjs\Chart.min.js" />
+    <None Include="wwwroot\theme\vendors\datatables\simple-datatables%40latest.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HallManagement.Core\HallManagement.Core.csproj" />
+    <ProjectReference Include="..\HallManagement.Service\HallManagement.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\BloodGroup\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\BloodGroup\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\BloodGroup\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\BloodGroup\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\BloodGroup\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Class\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Class\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Class\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Class\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Class\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Department\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Designation\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Designation\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Designation\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Designation\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Designation\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Nationality\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Nationality\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Nationality\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Nationality\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Nationality\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Religion\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Religion\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Religion\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Religion\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Religion\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\RoomSeat\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Section\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Section\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Section\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Section\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Section\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Session\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Session\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Session\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Session\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Session\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_LayoutExternal.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\EstablishmentCharge\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\EstablishmentCharge\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\EstablishmentCharge\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\EstablishmentCharge\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\EstablishmentCharge\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\nationalbank_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Spinner.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
+</Project>

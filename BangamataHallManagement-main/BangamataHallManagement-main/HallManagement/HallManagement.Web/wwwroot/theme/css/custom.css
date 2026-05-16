@@ -1,0 +1,45 @@
+.error {
+    color: red;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link, .sb-nav-link-icon {
+    color: white !important;
+}
+
+.p-3{
+    padding-top: 0px !important;
+}
+.text-dark {
+    margin: 0px;
+    font-size: 17px;
+    margin-top: 5px;
+    margin-left: 9px;
+}
+.form-control, .dataTable-input{
+    border-radius: 0px;
+    line-height: 15px;
+    font-size: 12px;
+    min-height: 28px;
+}
+.btn {
+}
+table tr th{
+    font-size: 12px;
+    text-align:center;
+    vertical-align: middle;
+}
+table tr td {
+    font-size: 12px;
+    vertical-align: middle;
+}
+.btn-xs{
+    font-size: 12px;
+}
+.btn-sm {
+    padding-top: 3.5px !important;
+    padding-bottom: 3.5px !important;
+}
+textarea{
+    padding-top: 10px !important;
+}
+
