@@ -1,0 +1,380 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* new changes of css*/
+/*Temp Class*/
+select:disabled {
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select[disabled="disabled"] {
+    border: 0px;
+}
+
+input[type=checkbox]:checked + label {
+    color: Green;
+}
+
+span.boldred {
+    color: red !important;
+}
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    margin-top: 10px;
+    padding-bottom: 20px;
+    background: #edeeef;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+.bottom-single-line {
+    border-bottom: solid 1px #cf171f;
+    background: url(../Images/redlinetop.jpg) bottom repeat-x;
+}
+
+a {
+    color: #006300;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #cf171f;
+        text-decoration: none;
+    }
+
+.module-name-work {
+    margin-top: 10px;
+}
+
+.min-height-40 {
+    min-height: 40px;
+}
+
+footer {
+    text-align: center;
+}
+
+.margin-top-100 {
+    margin-top: 100px;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+
+.table tr td a {
+    color: #cf171f;
+}
+
+    .table tr td a:hover {
+        color: #006300;
+    }
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.top-banner {
+    background-image: url('../Images/top-banner.png');
+    background-repeat: no-repeat;
+    min-height: 235px;
+}
+
+/* ---------------------------------------------------------------------- */
+/*	Login
+/* ---------------------------------------------------------------------- */
+.input-group-addon {
+    font-size: 10px;
+    padding: 2px 12px;
+}
+
+.no-display {
+    display: none;
+}
+
+.login {
+    color: #2c2c2c;
+}
+    /*.loginback {
+	background-image: url(../Images/bg_2.png);
+	background-color: rgba(255, 255, 255, 0);
+    min-height:450px  
+}*/
+    .login .main-login {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    .login .logo {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .login .box-login, .login .box-forgot, .login .box-register {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 30px 30px 50px rgba(0, 0, 0, 0.32);
+        overflow: hidden;
+        padding: 15px;
+        border: solid 1px rgba(0, 0, 0, 0.075);
+    }
+
+    .login .form fieldset {
+        border: none;
+        margin: 0;
+        padding: 10px 0 0;
+    }
+
+    .login a.forgot {
+    }
+
+    .login input.password {
+        padding-right: 130px;
+    }
+
+    .login label {
+        color: #7F7F7F;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+
+    .login .form-actions:before, .login .form-actions:after {
+        content: "";
+        display: table;
+        line-height: 0;
+    }
+
+    .login .form-actions:after {
+        clear: both;
+    }
+
+    .login .form-actions {
+        display: block;
+    }
+
+    .login .new-account {
+        border-top: 1px dotted #EEEEEE;
+        margin-top: 15px;
+        padding-top: 10px;
+        display: block;
+    }
+
+    .login .input-group {
+        margin-bottom: 15px;
+    }
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input[type="text"],
+input[type="password"] {
+    max-width: 280px;
+}
+
+ols a {
+    margin-left: 10px;
+    color: #a7a7a7;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.tools a:hover {
+    text-decoration: none;
+    color: #cf171f;
+}
+
+.panel {
+    border: none;
+}
+
+.panel-heading {
+    border-color: #eff2f7;
+    font-size: 13px;
+    background: #fafafa;
+    text-transform: uppercase;
+    padding: 5px 15px;
+}
+
+.panel-body {
+    padding: 15px;
+    border: solid 1px #efefef;
+    border-top: solid 0px #efefef;
+}
+/* desktop & Large screen */
+@media screen and (max-width: 768px) {
+    .xs-text-center {
+        text-align: center;
+    }
+
+    .navbar-header {
+        background-color: #006300;
+        background-image: url(../Images/bg_header_grey.gif);
+        background-repeat: repeat-x;
+        background-position: bottom;
+    }
+
+    .navbar-toggle {
+        position: relative;
+        float: right;
+        padding: 9px 10px;
+        margin-top: 8px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #cf171f;
+        border: 0px solid transparent;
+        border-radius: 4px;
+    }
+
+        .navbar-toggle .icon-bar {
+            background-color: #ffffff;
+        }
+
+    .navbar {
+        border: 0px;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #ffffff;
+            background-color: #cf171f;
+        }
+
+    .xs-zero-padding {
+        padding: 0px;
+    }
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .no-padding {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .navbar-inverse {
+        background-color: #006300;
+        background-image: url(../Images/bg_header_grey.gif);
+        background-repeat: repeat-x;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .navbar {
+        min-height: 35px;
+        border: 0px solid transparent;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #ffffff;
+            background-color: #06944a;
+        }
+
+        .navbar-inverse .navbar-nav > li > a.selected {
+            color: #ffffff;
+            background-color: #06944a;
+        }
+
+    .margin-right-30 {
+        margin-right: 30px;
+    }
+
+    .body-content {
+        min-height: 500px;
+        margin-bottom: 15px;
+        background: #ffffff;
+        overflow-y: auto;
+    }
+}
+
+/*#CashPaymentEntryForm .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    border-top: 0;
+}*/
+
+.level-css {
+    width: 200px;
+    text-align: right;
+}
+
+.field-css {
+    width: 200px;
+}
+
+.normal-red {
+    color: red;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    text-align: left;
+    margin-left: -25px;
+}
+
+.mtop10 {
+    margin-top: 10px;
+}
+
+.mtop9 {
+    margin-top: 9px;
+}
+
+.mtop8 {
+    margin-top: 8px;
+}
+
+select.input-sm {
+    line-height: 10px !important;
+}
+
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    padding: 2px !important;
+    margin: 0px;
+    vertical-align: auto;
+    white-space: nowrap;
+}
+.table thead > tr > th {
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+    padding-top: 0;
+    vertical-align: middle;
+    /*    vertical-align: auto;
+*/
+}
+
+.required::after {
+    content: '*';
+    color: red;
+    font-weight: bolder;
+    margin-left: 1px;
+}

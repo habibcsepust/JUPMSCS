@@ -1,0 +1,103 @@
+﻿@using HallManagement.Model.ViewModels;
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card my-5">
+
+                <form asp-controller="Account" asp-action="Login" method="post" class="card-body cardbody-color p-lg-5">
+                    <div class="text-center">
+                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-center text-dark mt-3">User Login</h3>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group mt-3">
+                            <span class="input-group-text bg-dark-subtle" id="basic-addon1">Login ID</span>
+                            <input type="text" class="form-control" asp-for="UserName" aria-describedby="emailHelp" placeholder="Type email or phone" />
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group mt-3">
+                            <span class="input-group-text bg-dark-subtle" id="basic-addon1">Password</span>
+                            <input type="password" asp-for="Password" class="form-control" placeholder="Type password" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>User Type</b>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.RadioButtonFor(e => e.IsStudentLogin, false, new { id = "false" }) @Html.Label("false", "Staff")
+                            </div>
+                            <div class="col-md-4">
+                                @Html.RadioButtonFor(e => e.IsStudentLogin, true, new { id = "true" }) @Html.Label("true", "Student")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-5 mb-3  w-100">Login</button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
+
+                    <div id="emailHelp" class="form-text text-center mb-3 text-dark">
+                        Forgot Password? <a asp-action="ForgotPassword" class="link-primary fw-bold">Click here.</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Function to get a cookie
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        $(document).ready(function () {
+            var isStudentLogin = getCookie("isStudentLogin");
+
+            // If the preference exists, update the radio button accordingly
+            if (isStudentLogin !== null) {
+                $("input[name='IsStudentLogin'][value='" + isStudentLogin + "']").prop("checked", true);
+            }
+
+            // Bind change event to update cookie when the selection changes
+            $("input[name='IsStudentLogin']").change(function () {
+                var selectedValue = $(this).val();
+                setCookie("isStudentLogin", selectedValue, 30); // Set cookie for 30 days
+            });
+        });
+    </script>
+}

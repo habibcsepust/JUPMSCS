@@ -1,0 +1,184 @@
+﻿@model HallManagement.Model.ViewModels.StudentDetailVm
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+<div class="container">
+    <h4>Student Details</h4>
+    <hr />
+    <form class="form-horizontal">
+        @*     @Html.ValidationSummary()*@
+        <div asp-validation-summary="ModelOnly" class="text-center text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="NameInEnglish" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="NameInEnglish" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Name" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Name" placeholder="@Model.Name" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="FatherName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="FatherName" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="MotherName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="MotherName" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ClassRollNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ClassRollNo" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="RegistrationNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="RegistrationNo" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ClassName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ClassName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="DepartmentName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="DepartmentName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="BatchName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="BatchName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="SectionName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="SectionName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="EntryBy" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="EntryBy" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="EntryDate" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="EntryDate" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ModifiedBy" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ModifiedBy" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ModifyDate" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ModifyDate" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="SessionName" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="SessionName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="RegistrationYear" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="RegistrationYear" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="DateOfBirth" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input type="date" asp-for="DateOfBirth" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Mobile" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Mobile" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Email" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Email" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ReligionName" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ReligionName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="NationalityName" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="NationalityName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="BloodGroupName" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="BloodGroupName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="IsArchived" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="IsArchived" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="offset-md-5 col-md-5">
+                <div class="row">
+                    <div class="col-sm-5 col-md-4 mt-4">
+                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            alert(1)
+            document.querySelector('#resetBtn').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevents the default reset behavior
+                alert(2)
+                document.getElementById('myForm').reset();
+                // Additional client-side operations upon reset if needed
+            });
+        }
+    </script>
+}

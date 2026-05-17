@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h4 class="pb-2 pt-2 border-bottom border-2 border-dark">Room Seat List</h4>
+
+    <p>
+        <a asp-action="Create">Allocate Seat</a>
+    </p>
+
+    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
+        <table class="table table-hover table-striped caption-top">
+            <caption class="bg-warning text-center text-white">Student Room Seats:</caption>
+            <thead class="table-warning text-white">
+            <th>Room No.</th>
+            <th>Seat No. or Position</th>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Roll No.</th>
+            <th>Mobile</th>
+            <th>Edit</th>
+            </thead>
+            <tbody id="pagedData">
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
+        <div id="pagingButtons"></div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            var pageSize = 10; // Change it to your desired page size
+            var pageNumber = 1; // Initially load the first page
+            fetchData(pageNumber, pageSize);
+
+            function fetchData(pageNumber, pageSize) {
+                $.ajax({
+                    url: '@Url.Action("GetPagedData", "RoomSeat")',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { pageNumber: pageNumber, pageSize: pageSize },
+                    success: function (response) {
+                        console.log(response)
+                        displayData(response.data);
+                        displayPagination(response.totalRecords, pageNumber, pageSize);
+                    },
+                    error: function (ex) {
+                        console.error('Error fetching data.' + ex);
+                    }
+                });
+            }
+
+            function displayData(data) {
+                var html = ''; // Create HTML table to display data
+                // Generate rows and columns for data display
+                $.each(data, function (index, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.RoomNo + '</td>';
+                    html += '<td>' + item.SeatNo + '</td>';
+                    html += '<td>' + (item.StudentName !== null ? item.StudentName : "") + '</td>';
+                    html += '<td>' + (item.Email !== null ? item.Email : "") + '</td>';
+                    html += '<td>' + (item.RollNo !== null ? item.RollNo : "") + '</td>';
+                    html += '<td>' + (item.Mobile !== null ? item.Mobile : "") + '</td>';
+                    html += '<td><a href="/RoomSeat/Create?id=' + item.SeatId + '">Edit</a></td>';
+
+                    html += '</tr>';
+                });
+                html += '';
+                $('#pagedData').html(html); // Display the data
+            }
+
+            function displayPagination(totalRecords, pageNumber, pageSize) {
+                var totalPages = Math.ceil(totalRecords / pageSize); // Calculate total pages
+                var paginationHtml = '<ul class="pagination">';
+
+                // First button
+                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
+                paginationHtml += '<a class="page-link" href="#" data-page="1">First</a>';
+                paginationHtml += '</li>';
+
+                // Previous button
+                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
+                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber - 1) + '">Previous</a>';
+                paginationHtml += '</li>';
+
+                // Page buttons
+                var startPage = Math.max(1, pageNumber - 4);
+                var endPage = Math.min(totalPages, startPage + 9);
+                for (var i = startPage; i <= endPage; i++) {
+                    paginationHtml += '<li class="page-item ' + (pageNumber === i ? 'active' : '') + '">';
+                    paginationHtml += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>';
+                    paginationHtml += '</li>';
+                }
+
+                // Next button
+                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
+                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber + 1) + '">Next</a>';
+                paginationHtml += '</li>';
+
+                // Last button
+                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
+                paginationHtml += '<a class="page-link" href="#" data-page="' + totalPages + '">Last</a>';
+                paginationHtml += '</li>';
+
+                paginationHtml += '</ul>';
+
+                $('#pagingButtons').html(paginationHtml); // Display the pagination
+            }
+
+            // Event listener for pagination links
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                pageNumber = $(this).data('page');
+                fetchData(pageNumber, pageSize);
+            });
+        });
+    </script>
+}

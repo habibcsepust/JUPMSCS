@@ -1,0 +1,128 @@
+﻿@model HallManagement.Model.ViewModels.StaffVm
+
+@{
+    ViewData["Title"] = "Create Staff";
+}
+
+<div class="container">
+    <h4>Staff Create</h4>
+    <hr />
+    <form asp-action="Create" id="myForm" class="form-horizontal">
+        @*     @Html.ValidationSummary()*@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="Name" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="DesignationId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="DesignationId" class="form-control form-select" asp-items="Model.DesignationList">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DesignationId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="DepartmentId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="DepartmentId" class="form-control form-select" asp-items="Model.DepartmentList">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="BioLink" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="BioLink" type="url" class="form-control" />
+                        <span asp-validation-for="BioLink" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Mobile" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Mobile" class="form-control" />
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Email" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ActingDateFrom" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ActingDateFrom" type="date" class="form-control" />
+                        <span asp-validation-for="ActingDateFrom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ActingDateTo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ActingDateTo" type="date" class="form-control" />
+                        <span asp-validation-for="ActingDateTo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="DisplayOrder" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="DisplayOrder" type="number" class="form-control" />
+                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="IsActive" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="IsActive" class="form-control form-select">
+                            <option value="">--Select--</option>
+                            <option value="true" selected="selected">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <div class="offset-md-3 col-md-6">
+                <div class="row">
+                    <div class="col-sm-5 col-md-5 mt-4">
+                        <input type="submit" value="Create" class="col-md-12 btn btn-success" />
+                    </div>
+                    <div class="col-sm-5 col-md-2 mt-4">
+                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            alert(1)
+            document.querySelector('#resetBtn').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevents the default reset behavior
+                alert(2)
+                document.getElementById('myForm').reset();
+                // Additional client-side operations upon reset if needed
+            });
+        }
+    </script>
+}
