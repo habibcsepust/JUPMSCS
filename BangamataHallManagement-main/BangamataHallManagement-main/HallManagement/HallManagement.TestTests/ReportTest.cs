@@ -1,4 +1,4 @@
-﻿using CFormManagement.SmsServiceReference.Interfaces;
+﻿//using CFormManagement.SmsServiceReference.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +9,15 @@ namespace CFormManagement.TestTests
 {
     public class ReportTest
     {
-        IReportService _reportService;
-        public ReportTest(IReportService reportService)
-        {
-            _reportService = reportService;
-        }
+        //IReportService _reportService;
+        //public ReportTest(IReportService reportService)
+        //{
+        //    _reportService = reportService;
+        //}
 
-        public bool CheckIsExist(string name)
-        {
-            return _reportService.IsBankInfoExists(name).Result;
-        }
+        //public bool CheckIsExist(string name)
+        //{
+        //    return _reportService.IsBankInfoExists(name).Result;
+        //}
     }
 }
