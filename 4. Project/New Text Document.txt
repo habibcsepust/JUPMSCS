@@ -1,0 +1,46 @@
+Introduction:
+---------
+The University Hall Management Web App is designed and developed to facilitate the overall management of university hall, room allocation, student registration, maintenance tracking. It is intended to develop a user-friendly and scalable web application that meets the unique requirements of university hall management.
+This web-based system can keep all residential student records, allocate/de-allocate room seats, can collect establishment charge with proper audit trail. Also, the application has admin control who can add, update staff, give permission, remove permission, deactivate staff, etc. Master data of the system is configurable from UI by the admin.
+Student can visit their own information with default password. There is also mechanism for information security and credential management.
+The system has been developed using C#, MVC, .NET Core 6, and repository pattern with backend MSSQL Database.
+
+
+
+Outline(Security Related):
+----------------
+User Authentication 
+Data Encryption  
+Input Validation 
+Cross-Site Request Forgery(CSRF) Checking 
+Session Management
+Logging and Monitoring
+File Upload Security 
+SSL Certificates
+
+Objective Of The Project:
+--------------
+The main objective of this Implementation of Bangamata Hall Management System project is to design and implement for the easy to maintain, data accuracy, large data control, high availability and ensure security. Here are the features implemented:
+Student Info Add/Update,
+Allocate/de-allocate seat, 
+Yearly establishment charge collect from student,
+ Hall Officials Add/Update,
+System User Credentials Management
+Master data configure from UI by admin user,
+
+Information Access to Student with default password,
+Dynamically menu accessibility by user role,
+Password recovery,
+Responsive design from mobile view.
+
+Tools And Technology:
+------------
+ Programming Languages: C#,
+Framework: ASP.NET Core MVC, Repository Pattern,
+Scripting Language: HTML5, CSS3, Bootstrap, JavaScript, jQuery,
+Database: MSSQL,
+Server: IIS,
+API: SMS/Email integration,
+Tools: MSSQL Server Management Studio, Tortoise git client,
+IDE: Visual Studio 2022,
+Version Control: github, git.
