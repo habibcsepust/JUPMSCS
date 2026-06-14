@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SIS System Project" company="" webLink="" view-date="2026-06-14" view-index="0">
+  <tasks>
+    
+    <task id="1" name="Authentication System" start="2026-06-14" duration="1" complete="0">
+    </task>
+    
+    <task id="2" name="Student Registration / Admission" start="2026-06-15" duration="2" complete="0">
+    </task>
+    
+    <task id="3" name="Student Profile Management" start="2026-06-17" duration="2" complete="0">
+    </task>
+    
+    <task id="4" name="Syllabus & Course Management" start="2026-06-19" duration="2" complete="0">
+    </task>
+    
+    <task id="5" name="Credit System Management" start="2026-06-21" duration="1" complete="0">
+    </task>
+    
+    <task id="6" name="Academic Progress Tracking" start="2026-06-22" duration="2" complete="0">
+    </task>
+    
+    <task id="7" name="Exam Management (Mid/Final/Quiz)" start="2026-06-24" duration="3" complete="0">
+    </task>
+    
+    <task id="8" name="Result Information System" start="2026-06-27" duration="2" complete="0">
+    </task>
+    
+    <task id="9" name="Reporting Module" start="2026-06-29" duration="1" complete="0">
+    </task>
+    
+  </tasks>
+</project>
