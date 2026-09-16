@@ -1,0 +1,94 @@
+﻿@model HallManagement.Model.ViewModels.UserCredentialVm
+
+@{
+    ViewData["Title"] = "Edit User Credential";
+}
+
+<div class="container">
+    <h4>User Credential Edit</h4>
+    <hr />
+    <form asp-action="Edit" id="myForm" class="form-horizontal">
+        @*     @Html.ValidationSummary()*@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="StaffId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="StaffId" class="form-control form-select" asp-items="Model.Staffs">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="StaffId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="RoleId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="RoleId" class="form-control form-select" asp-items="Model.Roles">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                    </div>
+                </div>
+@*              <div class="form-group row pt-2">
+                    <label asp-for="UserName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+               <div class="form-group row pt-2">
+                    <label asp-for="Password" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div> *@
+                <div class="form-group row pt-2">
+                    <label asp-for="IsEnabled" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="IsEnabled" class="form-control form-select">
+                            <option value="">--Select--</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <span asp-validation-for="IsEnabled" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <div class="offset-md-3 col-md-6">
+                <div class="row">
+                    <div class="col-sm-5 col-md-5 mt-4">
+                        <input type="submit" value="Update" class="col-md-12 btn btn-success" />
+                    </div>
+                    <div class="col-sm-5 col-md-2 mt-4">
+                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            alert(1)
+            document.querySelector('#resetBtn').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevents the default reset behavior
+                alert(2)
+                document.getElementById('myForm').reset();
+                // Additional client-side operations upon reset if needed
+            });
+        }
+    </script>
+}

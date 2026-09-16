@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Student Details";
 }
+
+
 <div class="container">
     <h4>Student Details</h4>
     <hr />
@@ -51,6 +53,12 @@
                     <label asp-for="ClassName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
                     <div class="col-md-5">
                         <input asp-for="ClassName" class="form-control form-select" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="HallName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="HallName" class="form-control form-select" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group row pt-2">

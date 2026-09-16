@@ -1,0 +1,155 @@
+USE [CForm]
+GO
+/****** Object:  StoredProcedure [dbo].[GetFormCRemittanceDetail]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--[dbo].[GetFormCRemittanceDetail] '1043'
+CREATE PROCEDURE [dbo].[GetFormCRemittanceDetail]
+	@id INT
+AS
+BEGIN
+    SELECT  ri.*,S.Name as StatusName, Div.Name as DivisionName, Dis.Name as DistrictName, br.brName BranchName, FORMAT(ri.[CashDate], 'MMMM') AS MonthName, FORMAT(ri.[CashDate], 'dd/MM/yyyy') AS CashDatePart
+	FROM [dbo].[ReceiverInfo] ri
+	INNER JOIN dbo.Status S ON S.Id = ri.StatusId
+	INNER JOIN dbo.District Dis ON Dis.Id = ri.DistrictId
+	INNER JOIN dbo.Division Div ON Div.ID = ri.DivisionId
+	INNER JOIN dbo.View_BranchInfo br ON br.brCode = ri.BranchCode
+	WHERE ri.ID = @id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetRemittanceDetailPagedData]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- EXEC [dbo].[GetCaseInfoPagedData]  '1914', @page = 1, @PageSize = 1000,  @fromDate='',@toDate = '', @accountNumber = '', @suitNo = '',@courtId = ''
+CREATE PROCEDURE [dbo].[GetRemittanceDetailPagedData]
+	@BranchCode nvarchar(30),
+    @page INT = NULL,
+    @pageSize INT = NULL,
+	@fromDate date = NULL,
+	@toDate date = NULL
+AS
+BEGIN
+    DECLARE @Offset INT = (@page - 1) * @PageSize;
+	DECLARE @TotalPage INT 
+
+	SET @TotalPage = (select COUNT(*) from [dbo].[ReceiverInfo] ri
+	where 
+		ri.BranchCode = @BranchCode 
+		/*and ri.[CreateDate] >= CASE ISNULL(@fromDate,'') WHEN '' THEN ri.[CreateDate] ELSE @fromDate END 
+		and ri.[CreateDate] <= CASE ISNULL(@toDate,'') WHEN '' THEN DATEADD(DAY, 1, ri.[CreateDate]) ELSE DATEADD(DAY, 1, @toDate) END*/
+		)
+
+    SELECT  ri.*,S.Name as StatusName, @TotalPage as TotalCount 
+	FROM [dbo].[ReceiverInfo] ri
+	INNER JOIN dbo.Status S ON S.Id = ri.StatusId
+	where 
+		ri.BranchCode = @BranchCode 
+	/*	and ri.[CreateDate] >= CASE ISNULL(@fromDate,'') WHEN '' THEN ri.[CreateDate] ELSE @fromDate END 
+		and ri.[CreateDate] <= CASE ISNULL(@toDate,'') WHEN '' THEN DATEADD(DAY, 1, ri.[CreateDate]) ELSE DATEADD(DAY, 1, @toDate) END*/
+    ORDER BY ID
+    OFFSET @Offset ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetRemittanceDetailPagedDataByEmailOrPhone]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- EXEC [dbo].[GetCaseInfoPagedData]  '1914', @page = 1, @PageSize = 1000,  @fromDate='',@toDate = '', @accountNumber = '', @suitNo = '',@courtId = ''
+create  PROCEDURE [dbo].[GetRemittanceDetailPagedDataByEmailOrPhone]
+	@BranchCode nvarchar(30),
+    @page INT = NULL,
+    @pageSize INT = NULL,
+	@fromDate date = NULL,
+	@toDate date = NULL
+AS
+BEGIN
+    DECLARE @Offset INT = (@page - 1) * @PageSize;
+	DECLARE @TotalPage INT 
+
+	SET @TotalPage = (select COUNT(*) from [dbo].[ReceiverInfo] ri
+	where 
+		ri.BranchCode = @BranchCode 
+		/*and ri.[CreateDate] >= CASE ISNULL(@fromDate,'') WHEN '' THEN ri.[CreateDate] ELSE @fromDate END 
+		and ri.[CreateDate] <= CASE ISNULL(@toDate,'') WHEN '' THEN DATEADD(DAY, 1, ri.[CreateDate]) ELSE DATEADD(DAY, 1, @toDate) END*/
+		)
+
+    SELECT  ri.*,S.Name as StatusName, @TotalPage as TotalCount 
+	FROM [dbo].[ReceiverInfo] ri
+	INNER JOIN dbo.Status S ON S.Id = ri.StatusId
+	where 
+		ri.BranchCode = @BranchCode 
+	/*	and ri.[CreateDate] >= CASE ISNULL(@fromDate,'') WHEN '' THEN ri.[CreateDate] ELSE @fromDate END 
+		and ri.[CreateDate] <= CASE ISNULL(@toDate,'') WHEN '' THEN DATEADD(DAY, 1, ri.[CreateDate]) ELSE DATEADD(DAY, 1, @toDate) END*/
+    ORDER BY ID
+    OFFSET @Offset ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetSingleOtpHistory]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[GetSingleOtpHistory]
+@EmailOrPhone varchar(255),
+@Otp varchar(20),
+@timeoutInSecond int,
+@dbMessage varchar(255) output
+AS
+BEGIN
+	declare @isValid bit = 1, @TimeSpan datetime;
+	
+	if exists 
+	(
+		SELECT 1
+		FROM [dbo].[OtpHistory] 
+		where (Email = @EmailOrPhone or MobileNo = @EmailOrPhone) and Otp = @Otp and IsUsed <> 1 and DATEADD(SECOND, @timeoutInSecond, OtpSentTime) >= getdate()
+	)
+	begin
+		update [dbo].[OtpHistory] set IsUsed = 1, OtpMatchedTime = GETDATE() where (Email = @EmailOrPhone or MobileNo = @EmailOrPhone) and Otp = @Otp and IsUsed <> 1
+		set @dbMessage = 'SUCCESS'
+	end
+	else
+	begin
+		set @dbMessage = 'OTP has not matched, please try again.'
+	end;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetSingleRemittanceDetail]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--[dbo].[GetSingleRemittanceDetail] --'1029'
+CREATE PROCEDURE [dbo].[GetSingleRemittanceDetail]
+	@id INT
+AS
+BEGIN
+    SELECT  ri.*,S.Name as StatusName, Div.Name as DivisionName, Dis.Name as DistrictName, br.brName BranchName
+	FROM [dbo].[ReceiverInfo] ri
+	INNER JOIN dbo.Status S ON S.Id = ri.StatusId
+	INNER JOIN dbo.District Dis ON Dis.Id = ri.DistrictId
+	INNER JOIN dbo.Division Div ON Div.ID = ri.DivisionId
+	INNER JOIN dbo.View_BranchInfo br ON br.brCode = ri.BranchCode
+	WHERE ri.ID = @id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetSsoBranchList]    Script Date: 01/02/2024 12:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[GetSsoBranchList]
+AS
+BEGIN
+	SELECT brCode BranchCode, brName BranchName, RoutingNo FROM dbo.View_BranchInfo
+END
+GO

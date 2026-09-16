@@ -1,0 +1,7 @@
+cd "D:\CFormManagementSystem\CFormManagement.Model"
+
+dotnet ef dbcontext scaffold "Server=SHARIF-PC\MSSQLSERVER2019;User Id=bangamatahalldev;Password=bangamatahalldev;Database=BangamataHall;Encrypt=false;TrustServerCertificate=True;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Entities -f
+
+
+sharifhridoy
+hero1731313901

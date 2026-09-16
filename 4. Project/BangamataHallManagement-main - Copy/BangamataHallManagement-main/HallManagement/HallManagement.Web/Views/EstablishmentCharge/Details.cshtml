@@ -1,0 +1,89 @@
+﻿@model HallManagement.Model.ViewModels.EstablishmentChargeDetailVm
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="container">
+    <h4>Student Entry</h4>
+    <hr />
+    <form class="form-horizontal">
+        @*     @Html.ValidationSummary()*@
+        <div asp-validation-summary="ModelOnly" class="text-center text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="ClassRollNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ClassRollNo" placeholder="@Model.ClassRollNo" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="Year" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="Year" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="PaidAmount" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="PaidAmount" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row pt-2">
+                    <label asp-for="EntryBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="EntryBy" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="EntryDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="EntryDate" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ModifiedBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ModifiedBy" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
+                    <label asp-for="ModifyDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <input asp-for="ModifyDate" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="offset-md-5 col-md-5">
+                <div class="row">
+                    <div class="col-sm-5 col-md-4 mt-4">
+                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            alert(1)
+            document.querySelector('#resetBtn').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevents the default reset behavior
+                alert(2)
+                document.getElementById('myForm').reset();
+                // Additional client-side operations upon reset if needed
+            });
+        }
+    </script>
+}
