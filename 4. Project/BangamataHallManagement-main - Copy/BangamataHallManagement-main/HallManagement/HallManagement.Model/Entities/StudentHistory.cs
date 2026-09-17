@@ -60,6 +60,4 @@ public partial class StudentHistory
     public DateTime? LogDate { get; set; }
 
     public string? Action { get; set; }
-
-    public virtual Student IdNavigation { get; set; } = null!;
 }

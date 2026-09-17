@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "About Project";
+}
+
+<style>
+    .about-header {
+        background: linear-gradient(135deg, #0a2540 0%, #007bff 100%);
+        color: white;
+        padding: 60px 0;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .about-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+    .developer-card {
+        border: none;
+        border-left: 5px solid #007bff;
+        border-radius: 15px;
+        transition: transform 0.3s;
+    }
+
+        .developer-card:hover {
+            transform: translateY(-5px);
+        }
+</style>
+
+<div class="container py-5 mt-4">
+    <!-- Header Banner -->
+    <div class="about-header text-center shadow-lg">
+        <i class="fas fa-university fa-4x mb-3 shadow-sm rounded-circle p-4 bg-white text-primary"></i>
+        <h1 class="fw-bold bengali-text mt-3">জাহাঙ্গীরনগর বিশ্ববিদ্যালয় হল ব্যবস্থাপনা</h1>
+        <p class="lead text-white-50 mt-2">Modernizing Campus Residential Services</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Project Details -->
+        <div class="col-md-7 col-lg-8">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5 text-muted" style="text-align: justify; line-height: 1.8;">
+                    <h4 class="fw-bold text-dark mb-4"><i class="fas fa-info-circle text-primary me-2"></i> About The Project</h4>
+                    <p class="bengali-text fs-5 text-dark">
+                        এই Hall Management System-টি জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ের আবাসিক হলগুলোর দৈনন্দিন প্রশাসনিক কার্যক্রমকে সম্পূর্ণ ডিজিটাল করার লক্ষ্যে তৈরি করা হয়েছে।
+                    </p>
+                    <p>
+                        The core objective of this enterprise-level application is to streamline administrative workflows, simplify student seat allocations, manage real-time residential records, and ensure a highly secure, transparent, and efficient process for both the hall administration and the resident students.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer Credit Card -->
+        <div class="col-md-5 col-lg-4">
+            <div class="card developer-card shadow-sm h-100 bg-white">
+                <div class="card-body p-4 text-center d-flex flex-column justify-content-center align-items-center">
+                    <h6 class="fw-bold text-muted mb-4 text-uppercase letter-spacing-1">System Architecture & Development</h6>
+
+                    <div class="mb-3 position-relative">
+                        <div style="width: 90px; height: 90px; background: #f0f7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <i class="fas fa-laptop-code fa-2x text-primary"></i>
+                        </div>
+                    </div>
+
+                    <h4 class="fw-bold text-dark bengali-text mb-1">মোঃ হাবিবুর রহমান</h4>
+                    <p class="text-muted small mb-3">Software Engineer & Student</p>
+
+                    <div class="mt-auto pt-3 border-top w-100">
+                        <span class="badge bg-light text-primary border px-3 py-2 rounded-pill shadow-sm">
+                            <i class="fas fa-graduation-cap me-1"></i> Final Semester Project
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HallManagement.Model.ViewModels;
+using HallManagement.Web.Controllers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using Web.Classes;
 using Web.Models;
-using Microsoft.AspNetCore.Http;
-using HallManagement.Web.Controllers;
 
 namespace Web.Controllers
 {
@@ -23,6 +24,11 @@ namespace Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public ActionResult About()
         {
             return View();
         }

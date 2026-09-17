@@ -390,6 +390,7 @@ namespace HallManagement.Web.Controllers
                     ClassRollNo = student.ClassRollNo,
                     DateOfBirth = student.DateOfBirth,
                     DepartmentName = student.Department?.Name,
+                    HallName = student.Hall?.Name,
                     Email = student.Email,
                     FatherName = student.FatherName,
                     Id = student.Id,

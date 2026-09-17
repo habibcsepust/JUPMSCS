@@ -27,6 +27,8 @@ public partial class BangamataHallContext : DbContext
 
     public virtual DbSet<EstablishmentCharge> EstablishmentCharges { get; set; }
 
+    public virtual DbSet<Hall> Halls { get; set; }
+
     public virtual DbSet<Menu> Menus { get; set; }
 
     public virtual DbSet<MenuRole> MenuRoles { get; set; }
@@ -63,7 +65,7 @@ public partial class BangamataHallContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=SHARIF-PC\\MSSQLSERVER2019;User Id=bangamatahalldev;Password=bangamatahalldev;Database=BangamataHall;Encrypt=false;TrustServerCertificate=True;Trusted_Connection=True;");
+//        => optionsBuilder.UseSqlServer("Server=DESKTOP-JONK7CV;Database=HallMgmt;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -141,6 +143,11 @@ public partial class BangamataHallContext : DbContext
             entity.HasOne(d => d.Student).WithMany(p => p.EstablishmentCharges)
                 .HasForeignKey(d => d.StudentId)
                 .HasConstraintName("FK_EstablishmentCharge_Student");
+        });
+
+        modelBuilder.Entity<Hall>(entity =>
+        {
+            entity.ToTable("Hall");
         });
 
         modelBuilder.Entity<Menu>(entity =>
@@ -432,6 +439,10 @@ public partial class BangamataHallContext : DbContext
                 .HasForeignKey(d => d.EntryBy)
                 .HasConstraintName("FK_Student_StaffEntry");
 
+            entity.HasOne(d => d.Hall).WithMany(p => p.Students)
+                .HasForeignKey(d => d.HallId)
+                .HasConstraintName("FK_Student_Hall");
+
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.StudentModifiedByNavigations)
                 .HasForeignKey(d => d.ModifiedBy)
                 .HasConstraintName("FK_Student_StaffModify");
@@ -480,11 +491,6 @@ public partial class BangamataHallContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.RegistrationNo).HasMaxLength(100);
             entity.Property(e => e.RegistrationYear).HasMaxLength(100);
-
-            entity.HasOne(d => d.IdNavigation).WithMany(p => p.StudentHistories)
-                .HasForeignKey(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_StudentHistory_Student");
         });
 
         modelBuilder.Entity<UserCredential>(entity =>

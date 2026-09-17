@@ -39,6 +39,9 @@ namespace HallManagement.Model.ViewModels
         [DisplayName("Department")]
         public string? DepartmentName { get; set; }
 
+        [DisplayName("Hall")]
+        public string? HallName { get; set; }
+
         [DisplayName("Batch")]
         public string? BatchName { get; set; }
 

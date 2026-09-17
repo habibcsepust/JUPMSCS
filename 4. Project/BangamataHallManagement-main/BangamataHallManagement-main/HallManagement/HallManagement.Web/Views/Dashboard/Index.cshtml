@@ -2,71 +2,233 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="container">
-    <h3 class="pb-2 pt-2 border-bottom border-2 border-dark">Dashboard</h3>
+<style>
+    /* Premium Dashboard Styles - Space Optimized */
+    body {
+        background-color: #f4f7f6;
+    }
 
-    <div class="row">
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-primary text-center">
-                <i class="fas fa-users fa-4x"></i>
-                <h3>Total Students</h3>
-                <h3 id="TotalStudents"></h3>
+    .dashboard-header {
+        font-weight: 800;
+        color: #1e3c72;
+        margin-bottom: 1.2rem; /* স্পেসিং কমানো হয়েছে */
+        position: relative;
+        padding-bottom: 8px;
+    }
+
+        .dashboard-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #007bff;
+            border-radius: 2px;
+        }
+
+    /* Modern Metric Cards */
+    .metric-card {
+        border-radius: 16px;
+        border: none;
+        padding: 20px 25px; /* প্যাডিং সামান্য কমানো হয়েছে */
+        position: relative;
+        overflow: hidden;
+        color: white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+    /* Watermark Background Icon */
+    .bg-icon {
+        position: absolute;
+        right: -15px;
+        bottom: -20px;
+        font-size: 7rem;
+        opacity: 0.15;
+        transform: rotate(-10deg);
+        transition: all 0.3s ease;
+    }
+
+    .metric-card:hover .bg-icon {
+        transform: rotate(0deg) scale(1.1);
+        opacity: 0.25;
+    }
+
+    /* Card Content */
+    .card-title-modern {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        opacity: 0.9;
+        z-index: 2;
+        position: relative;
+    }
+
+    .card-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 0;
+        line-height: 1.2;
+        z-index: 2;
+        position: relative;
+    }
+
+    /* Top Icon */
+    .top-icon-box {
+        background: rgba(255,255,255,0.2);
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Gradients */
+    .grad-blue {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    }
+
+    .grad-green {
+        background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+    }
+
+    .grad-red {
+        background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+    }
+
+    .grad-purple {
+        background: linear-gradient(135deg, #6f42c1 0%, #4e2d8b 100%);
+    }
+
+    .grad-teal {
+        background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+    }
+
+    .grad-indigo {
+        background: linear-gradient(135deg, #6610f2 0%, #470baf 100%);
+    }
+
+    .grad-orange {
+        background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+    }
+
+    .grad-dark {
+        background: linear-gradient(135deg, #5a5c69 0%, #373840 100%);
+    }
+</style>
+
+<div class="container pt-2 pb-2">
+    <!-- ওপর ও নিচের প্যাডিং কমানো হয়েছে -->
+    <h4 class="dashboard-header"><i class="fas fa-chart-line me-2"></i> System Dashboard</h4>
+
+    <div class="row g-3">
+        <!-- কার্ডের মাঝখানের গ্যাপ g-4 থেকে g-3 করা হয়েছে -->
+        <!-- Total Students -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-blue">
+                <div class="top-icon-box"><i class="fas fa-users"></i></div>
+                <h5 class="card-title-modern">Total Students</h5>
+                <h2 class="card-value" id="TotalStudents">0</h2>
+                <i class="fas fa-users bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-success text-center">
-                <i class="fas fa-user-plus fa-4x"></i>
-                <h3>Active Students</h3>
-                <h3 id="ActiveStudents"></h3>
+
+        <!-- Active Students -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-green">
+                <div class="top-icon-box"><i class="fas fa-user-check"></i></div>
+                <h5 class="card-title-modern">Active Students</h5>
+                <h2 class="card-value" id="ActiveStudents">0</h2>
+                <i class="fas fa-user-check bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-danger text-center">
-                <i class="fas fa-user-slash fa-4x"></i>
-                <h3>Inactive</h3>
-                <h3 id="InactiveStudents"></h3>
+
+        <!-- Inactive Students -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-red">
+                <div class="top-icon-box"><i class="fas fa-user-times"></i></div>
+                <h5 class="card-title-modern">Inactive</h5>
+                <h2 class="card-value" id="InactiveStudents">0</h2>
+                <i class="fas fa-user-times bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-warning text-center">
-                <i class="fas fa-building fa-4x"></i>
-                <h3>Total Rooms</h3>
-                <h3 id="TotalRooms"></h3>
+
+        <!-- Active Staffs -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-teal">
+                <div class="top-icon-box"><i class="fas fa-user-tie"></i></div>
+                <h5 class="card-title-modern">Active Staffs</h5>
+                <h2 class="card-value" id="TotalActiveStaffs">0</h2>
+                <i class="fas fa-user-tie bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-warning text-center">
-                <i class="fas fa-user fa-4x"></i>
-                <h3>Active Staffs</h3>
-                <h3 id="TotalActiveStaffs"></h3>
+
+        <!-- Total Rooms -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-purple">
+                <div class="top-icon-box"><i class="fas fa-building"></i></div>
+                <h5 class="card-title-modern">Total Rooms</h5>
+                <h2 class="card-value" id="TotalRooms">0</h2>
+                <i class="fas fa-building bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-primary text-center">
-                <i class="fas fa-bed fa-4x"></i>
-                <h3>Total Seats</h3>
-                <h3 id="TotalSeats"></h3>
+
+        <!-- Total Seats -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-indigo">
+                <div class="top-icon-box"><i class="fas fa-bed"></i></div>
+                <h5 class="card-title-modern">Total Seats</h5>
+                <h2 class="card-value" id="TotalSeats">0</h2>
+                <i class="fas fa-bed bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-danger text-center">
-                <i class="fas fa-bed fa-4x"></i>
-                <h3>Allocated Seats</h3>
-                <h3 id="AllocatedSeats"></h3>
+
+        <!-- Allocated Seats -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-orange">
+                <div class="top-icon-box"><i class="fas fa-clipboard-check"></i></div>
+                <h5 class="card-title-modern">Allocated Seats</h5>
+                <h2 class="card-value" id="AllocatedSeats">0</h2>
+                <i class="fas fa-clipboard-check bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-success text-center">
-                <i class="fas fa-bed fa-4x"></i>
-                <h3>Available Seats</h3>
-                <h3 id="AvailableSeats"></h3>
+
+        <!-- Available Seats -->
+        <div class="col-md-6 col-lg-3">
+            <div class="metric-card grad-green">
+                <div class="top-icon-box"><i class="fas fa-door-open"></i></div>
+                <h5 class="card-title-modern">Available Seats</h5>
+                <h2 class="card-value" id="AvailableSeats">0</h2>
+                <i class="fas fa-door-open bg-icon"></i>
             </div>
         </div>
-        <div class="col-md-4 py-2">
-            <div class="card p-3 bg-dark text-white text-center">
-                <i class="fas fa-credit-card fa-4x"></i>
-                <h3>Paid Year @DateTime.Now.Year </h3>
-                <h3 id="EstablishmentChargePaidThisYear"></h3>
+
+        <!-- Establishment Charge -->
+        <div class="col-md-6 col-lg-4 mt-1 mx-auto">
+            <!-- ওপরের মার্জিন mt-4 থেকে mt-1 করা হয়েছে -->
+            <div class="metric-card grad-dark text-center align-items-center" style="min-height: 160px;">
+                <div class="top-icon-box mb-2" style="width: 55px; height: 55px; font-size: 1.6rem;">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h5 class="card-title-modern text-warning">Paid Year @DateTime.Now.Year</h5>
+                <h2 class="card-value" id="EstablishmentChargePaidThisYear">0</h2>
+                <i class="fas fa-money-check-alt bg-icon"></i>
             </div>
         </div>
     </div>
@@ -88,25 +250,15 @@
                     dataType: 'json',
                     success: function (response) {
                         if (response.IsSuccess === true) {
-                            console.log(response)
-                            document.getElementById('TotalStudents').innerHTML = response.data.TotalStudents;
-                            document.getElementById('ActiveStudents').innerHTML = response.data.ActiveStudents;
-                            document.getElementById('InactiveStudents').innerHTML = response.data.InactiveStudents;
-                            document.getElementById('TotalRooms').innerHTML = response.data.TotalRooms;
-                            document.getElementById('TotalActiveStaffs').innerHTML = response.data.TotalActiveStaffs;
-                            document.getElementById('TotalSeats').innerHTML = response.data.TotalSeats;
-                            document.getElementById('AllocatedSeats').innerHTML = response.data.AllocatedSeats;
-                            document.getElementById('AvailableSeats').innerHTML = response.data.AvailableSeats;
-                            document.getElementById('EstablishmentChargePaidThisYear').innerHTML = response.data.EstablishmentChargePaidThisYear;
-                            animateNumber(document.getElementById('TotalStudents').innerText, 'TotalStudents');
-                            animateNumber(document.getElementById('ActiveStudents').innerText, 'ActiveStudents');
-                            animateNumber(document.getElementById('InactiveStudents').innerText, 'InactiveStudents');
-                            animateNumber(document.getElementById('TotalRooms').innerText, 'TotalRooms');
-                            animateNumber(document.getElementById('TotalActiveStaffs').innerText, 'TotalActiveStaffs');
-                            animateNumber(document.getElementById('TotalSeats').innerText, 'TotalSeats');
-                            animateNumber(document.getElementById('AllocatedSeats').innerText, 'AllocatedSeats');
-                            animateNumber(document.getElementById('AvailableSeats').innerText, 'AvailableSeats');
-                            animateNumber(document.getElementById('EstablishmentChargePaidThisYear').innerText, 'EstablishmentChargePaidThisYear');
+                            animateNumber(response.data.TotalStudents, 'TotalStudents');
+                            animateNumber(response.data.ActiveStudents, 'ActiveStudents');
+                            animateNumber(response.data.InactiveStudents, 'InactiveStudents');
+                            animateNumber(response.data.TotalRooms, 'TotalRooms');
+                            animateNumber(response.data.TotalActiveStaffs, 'TotalActiveStaffs');
+                            animateNumber(response.data.TotalSeats, 'TotalSeats');
+                            animateNumber(response.data.AllocatedSeats, 'AllocatedSeats');
+                            animateNumber(response.data.AvailableSeats, 'AvailableSeats');
+                            animateNumber(response.data.EstablishmentChargePaidThisYear, 'EstablishmentChargePaidThisYear');
                         }
                     },
                     error: function (ex) {
@@ -116,18 +268,18 @@
             }
 
             function animateNumber(maxCount, idname) {
-
-                $({ countNum: $('#count').text() }).animate({ countNum: maxCount }, {
+                var targetCount = parseInt(maxCount) || 0;
+                $({ countNum: 0 }).animate({ countNum: targetCount }, {
                     duration: 2000,
-                    easing: 'linear',
+                    easing: 'swing',
                     step: function () {
                         $('#' + idname).text(Math.floor(this.countNum));
                     },
                     complete: function () {
-                        $('#' + idname).text(maxCount);
+                        $('#' + idname).text(targetCount);
                     }
                 });
             }
         });
     </script>
-    }
+}

@@ -14,7 +14,7 @@ namespace HallManagement.Model.ViewModels
     {
         public StudentVm()
         {
-            BatchList = BloodGroupList = ClassList = DepartmentList = StafList = NationalityList = ReligionList = SectionList = SessionList = new List<SelectListItem>();
+            BatchList = BloodGroupList = ClassList = DepartmentList = StafList = NationalityList = ReligionList = SectionList = SessionList = HallList = new List<SelectListItem>();
         }
         public int? Id { get; set; }
 
@@ -59,6 +59,8 @@ namespace HallManagement.Model.ViewModels
 
         [DisplayName("Department")]
         public int? DepartmentId { get; set; }
+        [DisplayName("Hall")]
+        public int? HallId { get; set; }
 
         [DisplayName("Batch")]
         public int? BatchId { get; set; }
@@ -111,5 +113,7 @@ namespace HallManagement.Model.ViewModels
         public List<SelectListItem> SectionList { get; set; }
 
         public List<SelectListItem> SessionList { get; set; }
+
+        public List<SelectListItem> HallList { get; set; }
     }
 }

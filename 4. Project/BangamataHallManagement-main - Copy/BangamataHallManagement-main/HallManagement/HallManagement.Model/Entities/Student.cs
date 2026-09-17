@@ -57,6 +57,8 @@ public partial class Student
 
     public bool? IsPasswordResetDone { get; set; }
 
+    public int? HallId { get; set; }
+
     public virtual Batch? Batch { get; set; }
 
     public virtual BloodGroup? BloodGroup { get; set; }
@@ -69,6 +71,8 @@ public partial class Student
 
     public virtual ICollection<EstablishmentCharge> EstablishmentCharges { get; set; } = new List<EstablishmentCharge>();
 
+    public virtual Hall? Hall { get; set; }
+
     public virtual Staff? ModifiedByNavigation { get; set; }
 
     public virtual Nationality? Nationality { get; set; }
@@ -80,6 +84,4 @@ public partial class Student
     public virtual Section? Section { get; set; }
 
     public virtual Session? Session { get; set; }
-
-    public virtual ICollection<StudentHistory> StudentHistories { get; set; } = new List<StudentHistory>();
 }
