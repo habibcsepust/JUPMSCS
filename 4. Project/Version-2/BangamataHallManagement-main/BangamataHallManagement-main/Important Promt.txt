@@ -1,0 +1,55 @@
+Ekhon ekta bepar kheyal korlam tumi j scaffold command ta diyecho seta diye dekhalma HallManagement.Web project er vitor sob entity and Model create hoyeche but amar chawa holo j eta obossoi HallManagement.Model project er vitor jate create hoi.
+
+
+
+
+
+Ami tomak amar project structure ta dicci
+
+
+
+HallManagement.Core
+
+HallManagement.Service
+
+HallManagement.Model
+
+HallManagement.Web
+
+
+
+
+
+Ekhon eta kivabe solve korbo? Ei jonnoi mone hoi kaj korena LazyLoad data er jonno.
+
+Amar project e lazyload jevabe ache seta dicci
+
+
+
+
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
+namespace HallManagement.Model.Entities
+{
+    public partial class BangamataHallContext : DbContext
+    {
+        //public BangamataHallContext(
+        //    DbContextOptions<BangamataHallContext> options)
+        //    : base(options)
+        //{
+        //}
+
+        protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .ConfigureWarnings(warnings => warnings
+                    .Ignore(CoreEventId.DetachedLazyLoadingWarning));
+
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+    }
+}
+

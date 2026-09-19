@@ -1,0 +1,9 @@
+cd "F:/JUPMSCS/4. Project/BangamataHallManagement-main/BangamataHallManagement-main/HallManagement/HallManagement.Model"
+
+
+dotnet ef dbcontext scaffold "Server=DESKTOP-JONK7CV;Database=HallMgmt;Trusted_Connection=True;
+TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer --output-dir Entities 
+--context BangamataHallContext --force -t Batch -t BloodGroup -t Class -t Department -t Designation 
+-t EstablishmentCharge -t Hall -t Menu -t MenuRole -t Nationality -t PasswordResetHistory -t Religion 
+-t Role -t Room -t RoomSeat -t RoomSeatHistory -t Section -t Session -t Staff -t StaffHistory -t Student 
+-t StudentHistory -t UserCredential -t UserCredentialHistory

@@ -1,0 +1,300 @@
+﻿@model HallManagement.Model.ViewModels.StudentDetailVm
+
+@{
+    ViewData["Title"] = "Student Profile";
+}
+
+<style>
+    /* Ultra-Premium Student Profile Styles - Space Optimized */
+    body {
+        background-color: #f4f7f6;
+    }
+
+    .profile-container {
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    /* Redesigned Header - Reduced Padding */
+    .profile-header-premium {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px 40px 25px 40px; /* ওপর-নিচে প্যাডিং কমানো হয়েছে */
+        position: relative;
+    }
+
+        .profile-header-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
+            opacity: 0.5;
+        }
+
+    /* Optimized Avatar Size */
+    .profile-avatar-premium {
+        width: 120px; /* সাইজ একটু কমানো হয়েছে */
+        height: 120px;
+        background-color: #fff;
+        border: 5px solid rgba(255, 255, 255, 0.2);
+        background-clip: padding-box;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: #2a5298;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        flex-shrink: 0;
+    }
+
+    .glass-badge {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .info-card {
+        background: #ffffff;
+        border: 1px solid #f0f2f5;
+        border-radius: 16px;
+        padding: 20px;
+        height: 100%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+    .info-group {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.2rem; /* স্পেসিং কমানো হয়েছে */
+    }
+
+        .info-group:last-child {
+            margin-bottom: 0;
+        }
+
+    .info-icon-soft {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(42, 82, 152, 0.08);
+        color: #2a5298;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .info-label {
+        font-size: 0.75rem;
+        color: #828a96;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 2px;
+        font-weight: 700;
+    }
+
+    .info-value {
+        font-size: 1.05rem;
+        color: #2b3445;
+        font-weight: 600;
+    }
+
+    .section-title {
+        font-weight: 800;
+        color: #1e3c72;
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .meta-badge {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: #f4f7f6;
+        color: #495057;
+        font-weight: 500;
+        border: 1px solid #e9ecef;
+    }
+</style>
+
+<div class="container pt-3 pb-4">
+    <!-- ওপরের স্পেসিং কমানো হয়েছে -->
+    <!-- Top Action Bar -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
+        <h4 class="fw-bold text-dark m-0"><i class="fas fa-id-card-alt text-primary me-2"></i> Student Details</h4>
+        <div class="d-flex gap-2">
+            <button onclick="window.print()" class="btn btn-sm btn-primary rounded-pill px-4 shadow-sm">
+                <i class="fas fa-print me-2"></i> Print Profile
+            </button>
+            <a href="/Home/Index" class="btn btn-sm btn-outline-secondary rounded-pill px-4 shadow-sm bg-white">
+                <i class="fas fa-home me-2"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Profile Container -->
+    <div class="profile-container">
+
+        <!-- Premium Header with Flexbox -->
+        <div class="profile-header-premium">
+            <div class="d-flex flex-column flex-md-row align-items-center align-items-md-center text-center text-md-start position-relative z-1">
+                <div class="profile-avatar-premium mb-3 mb-md-0 me-md-4">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+
+                <div>
+                    <h2 class="fw-bold mb-1 text-white" style="letter-spacing: -0.5px;">@(string.IsNullOrEmpty(Model.NameInEnglish) ? Model.Name : Model.NameInEnglish)</h2>
+                    <h6 class="text-white-50 bengali-text mb-2">@Model.Name</h6>
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+                        <span class="glass-badge shadow-sm">
+                            <i class="fas fa-building text-warning me-2"></i> @Model.HallName
+                        </span>
+                        <span class="glass-badge shadow-sm">
+                            <i class="fas fa-laptop-code text-info me-2"></i> @Model.DepartmentName
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="card-body p-3 p-md-4 bg-white">
+            <!-- ভেতরের স্পেসিং অপ্টিমাইজ করা হয়েছে -->
+            <div class="row g-4">
+
+                <!-- Academic Card -->
+                <div class="col-lg-6">
+                    <div class="info-card">
+                        <h5 class="section-title"><i class="fas fa-university me-2 text-primary opacity-75"></i> Academic Profile</h5>
+                        <hr class="mb-3 text-muted opacity-25">
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-id-badge"></i></div>
+                            <div>
+                                <div class="info-label">Class Roll No</div>
+                                <div class="info-value">@(string.IsNullOrEmpty(Model.ClassRollNo) ? "N/A" : Model.ClassRollNo)</div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-id-card"></i></div>
+                            <div>
+                                <div class="info-label">Registration Details</div>
+                                <div class="info-value">@Model.RegistrationNo <span class="text-muted fw-normal">(@Model.RegistrationYear)</span></div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <div>
+                                <div class="info-label">Class & Session</div>
+                                <div class="info-value bengali-text">@Model.ClassName <span class="text-muted fw-normal">(@Model.SessionName)</span></div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-users"></i></div>
+                            <div>
+                                <div class="info-label">Batch & Section</div>
+                                <div class="info-value bengali-text">@Model.BatchName <span class="text-muted fw-normal">(@Model.SectionName)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Card -->
+                <div class="col-lg-6">
+                    <div class="info-card">
+                        <h5 class="section-title"><i class="fas fa-address-card me-2 text-primary opacity-75"></i> Personal Details</h5>
+                        <hr class="mb-3 text-muted opacity-25">
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-user-friends"></i></div>
+                            <div>
+                                <div class="info-label">Parents Name</div>
+                                <div class="info-value fs-6">F: @Model.FatherName</div>
+                                <div class="info-value fs-6 mt-1">M: @Model.MotherName</div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-calendar-check"></i></div>
+                            <div>
+                                <div class="info-label">Date of Birth</div>
+                                <div class="info-value">@Model.DateOfBirth</div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-mobile-alt"></i></div>
+                            <div>
+                                <div class="info-label">Contact Info</div>
+                                <div class="info-value">@Model.Mobile</div>
+                                <div class="info-value text-primary fs-6 mt-1" style="word-break: break-all;">@Model.Email</div>
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-icon-soft"><i class="fas fa-heartbeat"></i></div>
+                            <div>
+                                <div class="info-label">Blood Group & Religion</div>
+                                <div class="info-value text-danger bengali-text">@Model.BloodGroupName</div>
+                                <div class="info-value text-muted fs-6 bengali-text mt-1">@Model.ReligionName (@Model.NationalityName)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Meta Footer -->
+        <div class="bg-light p-2 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div class="text-muted small fw-bold ms-2">
+                <i class="fas fa-shield-alt me-1"></i> System Record
+            </div>
+            <div class="d-flex flex-wrap gap-2 justify-content-center me-2">
+                <span class="meta-badge"><i class="fas fa-user-edit text-secondary me-1"></i> By: @Model.EntryBy</span>
+                <span class="meta-badge"><i class="fas fa-clock text-secondary me-1"></i> @Model.EntryDate</span>
+                @if (!string.IsNullOrEmpty(Model.ModifiedBy))
+                {
+                    <span class="meta-badge"><i class="fas fa-pen text-secondary me-1"></i> Mod: @Model.ModifiedBy</span>
+                }
+                <span class="meta-badge border-0 @(Model.IsArchived == "True" ? "bg-danger text-white" : "bg-success text-white")">
+                    <i class="fas @(Model.IsArchived == "True" ? "fa-archive" : "fa-check-circle") me-1"></i>
+                    @(Model.IsArchived == "True" ? "Archived" : "Active")
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

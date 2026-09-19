@@ -1,0 +1,154 @@
+﻿@using HallManagement.Model.ViewModels;
+@using Microsoft.AspNetCore.Http
+@using Web.Classes
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Bangamata Hall Management</title>
+
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .bengali-text {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* Modern Glassmorphism Navbar */
+        .modern-navbar {
+            background: rgba(10, 37, 64, 0.95) !important; /* Deep elegant blue */
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+            .modern-navbar .navbar-brand {
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+
+            .modern-navbar .nav-link {
+                color: rgba(255,255,255,0.85) !important;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                margin: 0 5px;
+                border-radius: 5px;
+            }
+
+                .modern-navbar .nav-link:hover {
+                    color: #fff !important;
+                    background: rgba(255,255,255,0.1);
+                }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark modern-navbar fixed-top py-2">
+        <div class="container">
+           @*  <a class="navbar-brand d-flex align-items-center" href="/Home/Index">
+                <img height="40" class="me-2" src="~/images/logo.png" alt="Logo" />
+                <span class="fs-5">University Hall Management System</span>
+            </a> *@
+            <a class="navbar-brand d-flex align-items-center" href="@(!string.IsNullOrEmpty(Context.Session.GetString("Name")) ? "/Dashboard/Index" : "/Home/Index")">
+                <img height="40" class="me-2" src="~/images/logo.png" alt="Logo" />
+                <span class="fs-5">University Hall Management System</span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                @{
+                    if (!string.IsNullOrEmpty(Context.Session.GetString("Name")))
+                    {
+                        var menuAccessJson = Context.Session.GetString("MenuAccess");
+                        if (!string.IsNullOrEmpty(menuAccessJson))
+                        {
+                            var menuAccess = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MenuVm>>(menuAccessJson);
+                            <ul class="navbar-nav ms-auto">
+                                @{
+                                    var loginUserId = Context.Session.GetInt32("Id");
+                                }
+                                @foreach (MenuVm menu in menuAccess)
+                                {
+                                    if (menu.SubMenus.Count == 0)
+                                    {
+                                        var menuUrl = menu.Url;
+                                        if (loginUserId.HasValue && menu.Url.Equals("/Student/MyDetails", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            var encryptedId = CryptoUtility.EncryptText(loginUserId.Value.ToString());
+                                            menuUrl = Url.Action("MyDetails", "Student", new { id = encryptedId });
+                                        }
+                                        <li class="nav-item">
+                                            <a class="nav-link px-3" href="@menuUrl">@menu.Name</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown_@menu.Id" role="button" data-bs-toggle="dropdown">
+                                                @menu.Name
+                                            </a>
+                                            <ul class="dropdown-menu shadow border-0 rounded-3 mt-2">
+                                                @foreach (MenuVm subMenu in menu.SubMenus)
+                                                {
+                                                    <li><a class="dropdown-item py-2" href="@subMenu.Url">@subMenu.Name</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link px-3" href="/dashboard/index">Home</a></li>
+                            <li class="nav-item"><a class="nav-link px-3" href="/Home/About">About</a></li>
+                            <li class="nav-item"><a class="nav-link px-3" href="/Account/Login">Login</a></li>
+                        </ul>
+                    }
+                }
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid pe-0 ps-0" style="padding-top:68px;">
+        @{
+            if (!string.IsNullOrEmpty(Context.Session.GetString("Name")))
+            {
+                <div class="bg-white border-bottom py-2 mb-4 shadow-sm">
+                    <div class="container d-flex justify-content-end align-items-center">
+                        <span class="text-muted me-3"><i class="fas fa-user-circle me-1"></i> Welcome, <strong>@Context.Session.GetString("Name")</strong></span>
+                        <a class="btn btn-sm btn-outline-danger rounded-pill px-3" href="/Account/Logout/">Logout <i class="fas fa-sign-out-alt ms-1"></i></a>
+                    </div>
+                </div>
+            }
+        }
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0 text-white-50">&copy; @DateTime.Now.Year University Hall Management System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

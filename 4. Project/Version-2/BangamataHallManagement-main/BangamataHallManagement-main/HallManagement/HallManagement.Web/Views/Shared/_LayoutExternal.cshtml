@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Form-C</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/tailwindcss/tailwind.css" asp-append-version="true" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body>
+    <div class="container no-padding bottom-single-line min-height-40" style="background-color:white;">
+        <div class="row xs-text-center">
+            <div class="col-md-3">
+                <img alt="logo" style="height: 81px; width: 285px" src="~/Images/nationalbank_logo.png" />
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-8 text-center" style="padding-top:25px">
+                        <h3 style="font-weight:bold; font-size:20px;">FORM-C FOR FOREIGN REMITTANCE</h3>
+                    </div>
+                    <div class="col-md-4 pull-right" style="padding-top:15px">
+
+
+                        @if (!string.IsNullOrEmpty(@Context.Session.GetString("EmailOrPhone")))
+                        {
+                            <div class="col-md-12">
+                                Welcome!
+                                <br />
+                                <b>@Context.Session.GetString("EmailOrPhone")</b> | <a class="pull-right text-danger" asp-action="Logout" asp-controller="ReceiverInfo">LOGOUT</a>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12"></div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                Welcome! 
+                                <br />
+                                <b>Anonymous...</b>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container body-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Organization Name Here
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

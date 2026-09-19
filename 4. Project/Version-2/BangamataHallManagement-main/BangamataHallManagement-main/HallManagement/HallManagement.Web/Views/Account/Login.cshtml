@@ -1,0 +1,244 @@
+﻿@using HallManagement.Model.ViewModels;
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Secure Login";
+}
+
+<style>
+    /* Premium Login Page Specific Styles */
+    .login-wrapper {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f0f7ff 0%, #e0eafc 100%);
+        padding: 2rem 0;
+    }
+
+    .premium-login-card {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
+        border: 1px solid rgba(255,255,255,0.5);
+        overflow: hidden;
+        animation: slideUpFade 0.6s ease-out forwards;
+    }
+
+    @@keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* Icon Header */
+    .icon-header {
+        background: linear-gradient(135deg, #0a2540 0%, #007bff 100%);
+        height: 120px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+        .icon-header i {
+            font-size: 4rem;
+            color: #fff;
+            background: #ffffff;
+            color: #007bff;
+            padding: 20px;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            position: absolute;
+            bottom: -40px;
+            border: 5px solid #fff;
+        }
+
+    /* Modern Inputs */
+    .modern-input-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+        .modern-input-group i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 18px;
+            color: #6c757d;
+            z-index: 10;
+        }
+
+    .modern-input {
+        height: 55px;
+        border-radius: 12px;
+        padding-left: 45px !important;
+        border: 1px solid #dee2e6;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+
+        .modern-input:focus {
+            background-color: #fff;
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+        }
+
+    /* Segmented Control for Radio Buttons */
+    .user-type-selector {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 2rem;
+    }
+
+        .user-type-selector .form-check-input {
+            display: none; /* Hide actual radio button */
+        }
+
+        .user-type-selector .custom-radio-label {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.2s ease;
+        }
+
+        .user-type-selector .form-check-input:checked + .custom-radio-label {
+            border-color: #007bff;
+            background-color: rgba(0, 123, 255, 0.05);
+            color: #007bff;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+        }
+
+        .user-type-selector i {
+            margin-right: 8px;
+        }
+
+    /* Login Button */
+    .btn-login {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        border: none;
+        border-radius: 12px;
+        height: 55px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+        }
+</style>
+
+<div class="login-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card premium-login-card">
+
+                    <div class="icon-header">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+
+                    <form asp-controller="Account" asp-action="Login" method="post" class="card-body px-5 pt-5 pb-4 mt-3">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold text-dark mb-1">Welcome Back</h3>
+                            <p class="text-muted small">Please enter your credentials to continue</p>
+                        </div>
+
+                        <!-- Login ID -->
+                        <div class="modern-input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="text" class="form-control modern-input" asp-for="UserName" placeholder="Login ID (Email or Phone)" autocomplete="off" />
+                        </div>
+
+                        <!-- Password -->
+                        <div class="modern-input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" class="form-control modern-input" asp-for="Password" placeholder="Password" />
+                        </div>
+
+                        <!-- User Type Selection (Modern Radio) -->
+                        <div class="user-type-selector">
+                            <div class="flex-fill">
+                                @Html.RadioButtonFor(e => e.IsStudentLogin, false, new { id = "false", @class = "form-check-input" })
+                                <label class="custom-radio-label w-100" for="false">
+                                    <i class="fas fa-user-tie"></i> Staff
+                                </label>
+                            </div>
+                            <div class="flex-fill">
+                                @Html.RadioButtonFor(e => e.IsStudentLogin, true, new { id = "true", @class = "form-check-input" })
+                                <label class="custom-radio-label w-100" for="true">
+                                    <i class="fas fa-user-graduate"></i> Student
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-login w-100 mb-3 text-white">Login Securely</button>
+                            <div asp-validation-summary="ModelOnly" class="text-danger small fw-bold mb-2"></div>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <span class="text-muted small">Forgot your password?</span>
+                            <a asp-action="ForgotPassword" class="text-decoration-none fw-bold text-primary small ms-1">Reset here</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        $(document).ready(function () {
+            var isStudentLogin = getCookie("isStudentLogin");
+
+            if (isStudentLogin !== null) {
+                $("input[name='IsStudentLogin'][value='" + isStudentLogin + "']").prop("checked", true);
+            }
+
+            $("input[name='IsStudentLogin']").change(function () {
+                var selectedValue = $(this).val();
+                setCookie("isStudentLogin", selectedValue, 30);
+            });
+        });
+    </script>
+}
