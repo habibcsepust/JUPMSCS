@@ -1,32 +1,147 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Establishment Charge List";
 }
-<div class="container">
-    <h4 class="pb-2 pt-2 border-bottom border-2 border-dark">Establishment Charge List</h4>
 
-    <p>
-        <a asp-action="Create">Create New Establishment Charge</a>
-    </p>
+<style>
+    /* Premium Table Styles */
+    body {
+        background-color: #f4f7f6;
+    }
 
-    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
-        <table class="table table-hover table-striped table-responsive caption-top">
-            <caption class="bg-primary text-center text-white">
-                Establishment Charge List:
-            </caption>
-            <thead class="table-primary text-white">
-            <th>Student Name.</th>
-            <th>Class Roll No.</th>
-            <th>Department</th>
-            <th>Charge Year</th>
-            <th>Paid Amount(Tk.)</th>
-            <th>Action</th>
-            </thead>
-            <tbody id="pagedData">
-            </tbody>
-        </table>
+    .table-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .table-custom {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
+        .table-custom thead th {
+            background-color: #1e3c72; /* Premium dark blue header */
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            padding: 15px;
+            border: none;
+        }
+
+        .table-custom tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            color: #495057;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f2f5;
+            transition: background-color 0.2s ease;
+        }
+
+        .table-custom tbody tr:hover td {
+            background-color: #f8faff;
+        }
+
+    /* Action Buttons & Badges */
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+
+    .amount-text {
+        font-weight: 800;
+        color: #0ba360; /* Finance Green */
+        font-size: 1.05rem;
+    }
+
+    /* Custom Pagination */
+    .modern-pagination .page-link {
+        border: none;
+        color: #495057;
+        font-weight: 600;
+        border-radius: 8px;
+        margin: 0 4px;
+        padding: 8px 16px;
+        transition: all 0.3s;
+    }
+
+    .modern-pagination .page-item.active .page-link {
+        background-color: #0ba360; /* Active pagination matches finance theme */
+        color: white;
+        box-shadow: 0 4px 10px rgba(11, 163, 96, 0.3);
+    }
+
+    .modern-pagination .page-link:hover:not(.active) {
+        background-color: #eaf6f0;
+        color: #0ba360;
+    }
+    .table-custom thead th {
+    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%); /* ফিন্যান্স গ্রিন গ্রেডিয়েন্ট */
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    padding: 15px;
+    border: none;
+}
+</style>
+
+<div class="container py-4">
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h3 class="fw-bold text-dark m-0"><i class="fas fa-file-invoice-dollar text-success me-2"></i> Charge Collections</h3>
+            <p class="text-muted small mb-0 mt-1">View and manage student establishment charge payments</p>
+        </div>
+        <a asp-action="Create" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold" style="background-color: #0ba360; border-color: #0ba360;">
+            <i class="fas fa-plus-circle me-2"></i> Add New Payment
+        </a>
     </div>
-    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
-        <div id="pagingButtons"></div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-custom table-hover">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Roll No.</th>
+                        <th>Department</th>
+                        <th class="text-center">Charge Year</th>
+                        <th class="text-end">Paid Amount</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pagedData">
+                    <!-- Data will be loaded here via AJAX -->
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <i class="fas fa-spinner fa-spin me-2"></i> Loading payment records...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="bg-light p-3 border-top d-flex justify-content-center justify-content-md-end">
+            <div id="pagingButtons" class="modern-pagination"></div>
+        </div>
     </div>
 </div>
 
@@ -37,8 +152,8 @@
 
     <script>
         $(document).ready(function () {
-            var pageSize = 10; // Change it to your desired page size
-            var pageNumber = 1; // Initially load the first page
+            var pageSize = 10;
+            var pageNumber = 1;
             fetchData(pageNumber, pageSize);
 
             function fetchData(pageNumber, pageSize) {
@@ -48,75 +163,100 @@
                     dataType: 'json',
                     data: { pageNumber: pageNumber, pageSize: pageSize },
                     success: function (response) {
-                        console.log(response)
                         displayData(response.data);
                         displayPagination(response.totalRecords, pageNumber, pageSize);
                     },
                     error: function (ex) {
                         console.error('Error fetching data.' + ex);
+                        $('#pagedData').html('<tr><td colspan="6" class="text-center text-danger py-4">Failed to load data.</td></tr>');
                     }
                 });
             }
 
             function displayData(data) {
                 var html = '';
-                $.each(data, function (index, item) {
-                    html += '<tr>';
-                    html += '<td>' + (item.StudentName !== null ? item.StudentName : "") + '</td>';
-                    html += '<td>' + (item.ClassRollNo !== null ? item.ClassRollNo : "") + '</td>';
-                    html += '<td>' + (item.DepartmentName !== null ? item.DepartmentName : "") + '</td>';
-                    html += '<td>' + (item.ChargeYear !== null ? item.ChargeYear : "") + '</td>';
-                    html += '<td>' + (item.PaidAmount !== null ? item.PaidAmount : "") + '</td>';
-                    html += '<td><a href="/EstablishmentCharge/Edit?id=' + item.Id + '">Edit</a> | <a href="/EstablishmentCharge/Details?id=' + item.Id + '">Details</a></td>';
-                    html += '</tr>';
-                });
-                html += '';
+
+                if(data.length === 0) {
+                    html = '<tr><td colspan="6" class="text-center py-4 text-muted">No payment records found.</td></tr>';
+                } else {
+                    $.each(data, function (index, item) {
+                        // Clean Null values
+                        var name = item.StudentName || "-";
+                        var roll = item.ClassRollNo || "-";
+                        var dept = item.DepartmentName || "-";
+                        var year = item.ChargeYear || "-";
+                        var amount = item.PaidAmount || "0";
+
+                        // Build Row with Template Literals
+                        html += `<tr>
+                            <td class="fw-bold text-dark">${name}</td>
+                            <td>${roll}</td>
+                            <td><span class="badge bg-light text-dark border px-2 py-1">${dept}</span></td>
+                            <td class="text-center">
+                                <span class="badge bg-info text-dark bg-opacity-10 border border-info px-2 py-1">
+                                    <i class="fas fa-calendar-alt text-muted me-1"></i> ${year}
+                                </span>
+                            </td>
+                            <td class="text-end amount-text">৳ ${amount}</td>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="/EstablishmentCharge/Edit?id=${item.Id}" class="btn btn-light border btn-action text-primary shadow-sm" title="Edit Payment">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a href="/EstablishmentCharge/Details?id=${item.Id}" class="btn btn-light border btn-action text-info shadow-sm" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>`;
+                    });
+                }
                 $('#pagedData').html(html);
             }
 
             function displayPagination(totalRecords, pageNumber, pageSize) {
                 var totalPages = Math.ceil(totalRecords / pageSize);
-                var paginationHtml = '<ul class="pagination">';
+                var paginationHtml = '<ul class="pagination mb-0">';
 
-                // First button
-                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="1">First</a>';
-                paginationHtml += '</li>';
+                // First & Previous buttons
+                paginationHtml += `<li class="page-item ${pageNumber === 1 ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="1" title="First"><i class="fas fa-angle-double-left"></i></a>
+                                   </li>`;
+                paginationHtml += `<li class="page-item ${pageNumber === 1 ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${pageNumber - 1}" title="Previous"><i class="fas fa-angle-left"></i></a>
+                                   </li>`;
 
-                // Previous button
-                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber - 1) + '">Previous</a>';
-                paginationHtml += '</li>';
-
-                // Page buttons
-                var startPage = Math.max(1, pageNumber - 4);
-                var endPage = Math.min(totalPages, startPage + 9);
+                // Page numbers
+                var startPage = Math.max(1, pageNumber - 2);
+                var endPage = Math.min(totalPages, startPage + 4);
                 for (var i = startPage; i <= endPage; i++) {
-                    paginationHtml += '<li class="page-item ' + (pageNumber === i ? 'active' : '') + '">';
-                    paginationHtml += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>';
-                    paginationHtml += '</li>';
+                    paginationHtml += `<li class="page-item ${pageNumber === i ? 'active' : ''}">
+                                        <a class="page-link shadow-sm" href="#" data-page="${i}">${i}</a>
+                                       </li>`;
                 }
 
-                // Next button
-                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber + 1) + '">Next</a>';
-                paginationHtml += '</li>';
-
-                // Last button
-                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + totalPages + '">Last</a>';
-                paginationHtml += '</li>';
+                // Next & Last buttons
+                paginationHtml += `<li class="page-item ${pageNumber === totalPages ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${pageNumber + 1}" title="Next"><i class="fas fa-angle-right"></i></a>
+                                   </li>`;
+                paginationHtml += `<li class="page-item ${pageNumber === totalPages ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${totalPages}" title="Last"><i class="fas fa-angle-double-right"></i></a>
+                                   </li>`;
 
                 paginationHtml += '</ul>';
-
                 $('#pagingButtons').html(paginationHtml);
             }
 
+            // Pagination click handler
             $(document).on('click', '.pagination a', function (e) {
                 e.preventDefault();
-                pageNumber = $(this).data('page');
-                fetchData(pageNumber, pageSize);
+                var newPage = $(this).data('page');
+                if(newPage && newPage !== pageNumber) {
+                    pageNumber = newPage;
+                    $('#pagedData').html('<tr><td colspan="6" class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin me-2"></i> Loading...</td></tr>');
+                    fetchData(pageNumber, pageSize);
+                }
             });
         });
     </script>
-}     
+}

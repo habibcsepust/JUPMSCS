@@ -1,89 +1,234 @@
 ﻿@model HallManagement.Model.ViewModels.EstablishmentChargeDetailVm
 
 @{
-    ViewData["Title"] = "Student Details";
+    ViewData["Title"] = "Establishment Charge Details";
 }
 
-<div class="container">
-    <h4>Student Entry</h4>
-    <hr />
-    <form class="form-horizontal">
-        @*     @Html.ValidationSummary()*@
-        <div asp-validation-summary="ModelOnly" class="text-center text-danger"></div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="ClassRollNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ClassRollNo" placeholder="@Model.ClassRollNo" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Year" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Year" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="PaidAmount" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="PaidAmount" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="EntryBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="EntryBy" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="EntryDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="EntryDate" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ModifiedBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ModifiedBy" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ModifyDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ModifyDate" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-            <div class="offset-md-5 col-md-5">
-                <div class="row">
-                    <div class="col-sm-5 col-md-4 mt-4">
-                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row pt-3">
-        </div>
-    </form>
-</div>
+<style>
+    /* Premium Details View Styles - Finance Theme */
+    body {
+        background-color: #f4f7f6;
+    }
 
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #0ba360;
+        border-bottom: 2px solid #eaf6f0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Data Display Styles */
+    .data-group {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .data-group:hover {
+            background-color: #fff;
+            border-color: #3cba92;
+            box-shadow: 0 5px 15px rgba(60, 186, 146, 0.08);
+        }
+
+    .data-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .data-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2b2f32;
+        margin: 0;
+    }
+
+    .amount-highlight {
+        font-size: 1.5rem;
+        color: #0ba360;
+        font-weight: 800;
+    }
+
+    /* Audit Trail Panel */
+    .audit-panel {
+        background-color: #f8faff;
+        border: 1px solid #d8e6f8;
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+    }
+
+    .audit-item {
+        border-left: 2px solid #b8daff;
+        padding-left: 15px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .audit-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #007bff;
+        }
+
+        .audit-item.modify::before {
+            background-color: #ffc107;
+        }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Print specific styles (Fixed Razor @@media syntax) */
+    @@media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #printableArea, #printableArea * {
+            visibility: visible;
+        }
+
+        #printableArea {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .action-buttons {
+            display: none !important;
+        }
+
+        .premium-form-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card" id="printableArea">
+
+                <!-- Header -->
+                <div class="form-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-1"><i class="fas fa-receipt me-2"></i> Payment Receipt</h3>
+                            <p class="text-white-50 mb-0">Detailed view of the recorded establishment charge.</p>
+                        </div>
+                        <i class="fas fa-check-circle fa-3x text-white opacity-50"></i>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="row g-5 align-items-stretch">
+
+                        <!-- Left Column: Primary Details -->
+                        <div class="col-md-7">
+                            <h5 class="form-section-title"><i class="fas fa-file-invoice-dollar me-2"></i> Transaction Details</h5>
+
+                            <div class="data-group">
+                                <span class="data-label">Class Roll No</span>
+                                <p class="data-value">@Model.ClassRollNo</p>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Payment Year</span>
+                                        <p class="data-value"><i class="fas fa-calendar-alt text-muted me-2"></i>@Model.Year</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="data-group border-success" style="background-color: #eaf6f0;">
+                                        <span class="data-label text-success">Paid Amount (BDT)</span>
+                                        <p class="data-value amount-highlight">৳ @Model.PaidAmount</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Audit Trail (Fixed DateTime null checks) -->
+                        <div class="col-md-5">
+                            <div class="audit-panel shadow-sm">
+                                <h6 class="fw-bold text-primary mb-4"><i class="fas fa-shield-alt me-2"></i> System Audit Trail</h6>
+
+                                <div class="audit-item">
+                                    <span class="data-label text-primary">Created By</span>
+                                    <p class="mb-1 fw-bold text-dark">@(string.IsNullOrEmpty(Model.EntryBy) ? "System Administrator" : Model.EntryBy)</p>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> @(Model.EntryDate != null ? Model.EntryDate.ToString() : "N/A")</small>
+                                </div>
+
+                                <div class="audit-item modify">
+                                    <span class="data-label text-warning">Last Modified By</span>
+                                    <p class="mb-1 fw-bold text-dark">@(string.IsNullOrEmpty(Model.ModifiedBy) ? "No modifications" : Model.ModifiedBy)</p>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> @(Model.ModifyDate != null ? Model.ModifyDate.ToString() : "N/A")</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer / Action Buttons -->
+                <div class="action-buttons justify-content-end">
+                    <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="button" onclick="window.print()" class="btn btn-primary fw-bold px-4 shadow-sm" style="border-radius: 10px;">
+                        <i class="fas fa-print me-1"></i> Print Receipt
+                    </button>
+                    <!-- Assuming you have an ID parameter in the Model to pass to the Edit action -->
+                    <a asp-action="Edit" class="btn btn-warning fw-bold px-4 shadow-sm text-dark" style="border-radius: 10px;">
+                        <i class="fas fa-pen me-1"></i> Edit Record
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        $(document).ready(function () {
-            alert(1)
-            document.querySelector('#resetBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevents the default reset behavior
-                alert(2)
-                document.getElementById('myForm').reset();
-                // Additional client-side operations upon reset if needed
-            });
-        }
-    </script>
 }

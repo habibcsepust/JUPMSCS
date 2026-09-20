@@ -1,31 +1,141 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Room Seat Directory";
 }
-<div class="container">
-    <h4 class="pb-2 pt-2 border-bottom border-2 border-dark">Room Seat List</h4>
 
-    <p>
-        <a asp-action="Create">Allocate Seat</a>
-    </p>
+<style>
+    /* Premium Table Styles (Consistent with Student List) */
+    body {
+        background-color: #f4f7f6;
+    }
 
-    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
-        <table class="table table-hover table-striped caption-top">
-            <caption class="bg-warning text-center text-white">Student Room Seats:</caption>
-            <thead class="table-warning text-white">
-            <th>Room No.</th>
-            <th>Seat No. or Position</th>
-            <th>Student Name</th>
-            <th>Email</th>
-            <th>Roll No.</th>
-            <th>Mobile</th>
-            <th>Edit</th>
-            </thead>
-            <tbody id="pagedData">
-            </tbody>
-        </table>
+    .table-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .table-custom {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
+        .table-custom thead th {
+            background-color: #1e3c72;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            padding: 15px;
+            border: none;
+        }
+
+        .table-custom tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            color: #495057;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f2f5;
+            transition: background-color 0.2s ease;
+        }
+
+        .table-custom tbody tr:hover td {
+            background-color: #f8faff;
+        }
+
+    /* Action Buttons & Badges */
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+
+    .seat-badge {
+        background-color: #e8f4fd;
+        color: #0056b3;
+        border: 1px solid #b8daff;
+        font-weight: 700;
+        padding: 5px 10px;
+        border-radius: 8px;
+    }
+
+    /* Custom Pagination */
+    .modern-pagination .page-link {
+        border: none;
+        color: #495057;
+        font-weight: 600;
+        border-radius: 8px;
+        margin: 0 4px;
+        padding: 8px 16px;
+        transition: all 0.3s;
+    }
+
+    .modern-pagination .page-item.active .page-link {
+        background-color: #007bff;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .modern-pagination .page-link:hover:not(.active) {
+        background-color: #f0f7ff;
+        color: #007bff;
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h3 class="fw-bold text-dark m-0"><i class="fas fa-bed text-primary me-2"></i> Room & Seat Directory</h3>
+            <p class="text-muted small mb-0 mt-1">Manage hall rooms, seat allocations, and availability</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold">
+            <i class="fas fa-plus-circle me-2"></i> Allocate Seat
+        </a>
     </div>
-    <div class="col-md-12" style="overflow-x:scroll;overflow:auto;">
-        <div id="pagingButtons"></div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-custom table-hover">
+                <thead>
+                    <tr>
+                        <th>Room No.</th>
+                        <th>Position / Seat No.</th>
+                        <th>Allocated Student</th>
+                        <th>Email Address</th>
+                        <th>Roll No.</th>
+                        <th>Mobile</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="pagedData">
+                    <!-- Data will be loaded here via AJAX -->
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="fas fa-spinner fa-spin me-2"></i> Loading seat data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="bg-light p-3 border-top d-flex justify-content-center justify-content-md-end">
+            <div id="pagingButtons" class="modern-pagination"></div>
+        </div>
     </div>
 </div>
 
@@ -36,8 +146,8 @@
 
     <script>
         $(document).ready(function () {
-            var pageSize = 10; // Change it to your desired page size
-            var pageNumber = 1; // Initially load the first page
+            var pageSize = 10;
+            var pageNumber = 1;
             fetchData(pageNumber, pageSize);
 
             function fetchData(pageNumber, pageSize) {
@@ -47,78 +157,96 @@
                     dataType: 'json',
                     data: { pageNumber: pageNumber, pageSize: pageSize },
                     success: function (response) {
-                        console.log(response)
                         displayData(response.data);
                         displayPagination(response.totalRecords, pageNumber, pageSize);
                     },
                     error: function (ex) {
                         console.error('Error fetching data.' + ex);
+                        $('#pagedData').html('<tr><td colspan="7" class="text-center text-danger py-4">Failed to load data.</td></tr>');
                     }
                 });
             }
 
             function displayData(data) {
-                var html = ''; // Create HTML table to display data
-                // Generate rows and columns for data display
-                $.each(data, function (index, item) {
-                    html += '<tr>';
-                    html += '<td>' + item.RoomNo + '</td>';
-                    html += '<td>' + item.SeatNo + '</td>';
-                    html += '<td>' + (item.StudentName !== null ? item.StudentName : "") + '</td>';
-                    html += '<td>' + (item.Email !== null ? item.Email : "") + '</td>';
-                    html += '<td>' + (item.RollNo !== null ? item.RollNo : "") + '</td>';
-                    html += '<td>' + (item.Mobile !== null ? item.Mobile : "") + '</td>';
-                    html += '<td><a href="/RoomSeat/Create?id=' + item.SeatId + '">Edit</a></td>';
+                var html = '';
 
-                    html += '</tr>';
-                });
-                html += '';
-                $('#pagedData').html(html); // Display the data
+                if(data.length === 0) {
+                    html = '<tr><td colspan="7" class="text-center py-4 text-muted">No room/seat records found.</td></tr>';
+                } else {
+                    $.each(data, function (index, item) {
+                        // Clean null values and handle unallocated seats
+                        var roomNo = item.RoomNo || "-";
+                        var seatNo = item.SeatNo || "-";
+                        var email = item.Email || "-";
+                        var rollNo = item.RollNo || "-";
+                        var mobile = item.Mobile || "-";
+
+                        // Smart allocation badge
+                        var studentInfo = item.StudentName
+                            ? `<span class="fw-bold text-dark">${item.StudentName}</span>`
+                            : `<span class="badge bg-secondary opacity-75"><i class="fas fa-exclamation-circle me-1"></i> Unallocated</span>`;
+
+                        // Modern Template Literals for row generation
+                        html += `<tr>
+                            <td class="fw-bold text-primary">${roomNo}</td>
+                            <td><span class="seat-badge">${seatNo}</span></td>
+                            <td>${studentInfo}</td>
+                            <td class="text-muted small">${email}</td>
+                            <td>${rollNo}</td>
+                            <td><i class="fas fa-phone-alt text-muted small me-1"></i> ${mobile}</td>
+                            <td class="text-center">
+                                <a href="/RoomSeat/Create?id=${item.SeatId}" class="btn btn-light border btn-action text-primary shadow-sm" title="Edit Allocation">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>`;
+                    });
+                }
+                $('#pagedData').html(html);
             }
 
             function displayPagination(totalRecords, pageNumber, pageSize) {
-                var totalPages = Math.ceil(totalRecords / pageSize); // Calculate total pages
-                var paginationHtml = '<ul class="pagination">';
+                var totalPages = Math.ceil(totalRecords / pageSize);
+                var paginationHtml = '<ul class="pagination mb-0">';
 
-                // First button
-                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="1">First</a>';
-                paginationHtml += '</li>';
+                // First & Previous buttons
+                paginationHtml += `<li class="page-item ${pageNumber === 1 ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="1" title="First"><i class="fas fa-angle-double-left"></i></a>
+                                   </li>`;
+                paginationHtml += `<li class="page-item ${pageNumber === 1 ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${pageNumber - 1}" title="Previous"><i class="fas fa-angle-left"></i></a>
+                                   </li>`;
 
-                // Previous button
-                paginationHtml += '<li class="page-item ' + (pageNumber === 1 ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber - 1) + '">Previous</a>';
-                paginationHtml += '</li>';
-
-                // Page buttons
-                var startPage = Math.max(1, pageNumber - 4);
-                var endPage = Math.min(totalPages, startPage + 9);
+                // Page numbers
+                var startPage = Math.max(1, pageNumber - 2);
+                var endPage = Math.min(totalPages, startPage + 4);
                 for (var i = startPage; i <= endPage; i++) {
-                    paginationHtml += '<li class="page-item ' + (pageNumber === i ? 'active' : '') + '">';
-                    paginationHtml += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>';
-                    paginationHtml += '</li>';
+                    paginationHtml += `<li class="page-item ${pageNumber === i ? 'active' : ''}">
+                                        <a class="page-link shadow-sm" href="#" data-page="${i}">${i}</a>
+                                       </li>`;
                 }
 
-                // Next button
-                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + (pageNumber + 1) + '">Next</a>';
-                paginationHtml += '</li>';
-
-                // Last button
-                paginationHtml += '<li class="page-item ' + (pageNumber === totalPages ? 'disabled' : '') + '">';
-                paginationHtml += '<a class="page-link" href="#" data-page="' + totalPages + '">Last</a>';
-                paginationHtml += '</li>';
+                // Next & Last buttons
+                paginationHtml += `<li class="page-item ${pageNumber === totalPages ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${pageNumber + 1}" title="Next"><i class="fas fa-angle-right"></i></a>
+                                   </li>`;
+                paginationHtml += `<li class="page-item ${pageNumber === totalPages ? 'disabled' : ''}">
+                                    <a class="page-link shadow-sm" href="#" data-page="${totalPages}" title="Last"><i class="fas fa-angle-double-right"></i></a>
+                                   </li>`;
 
                 paginationHtml += '</ul>';
-
-                $('#pagingButtons').html(paginationHtml); // Display the pagination
+                $('#pagingButtons').html(paginationHtml);
             }
 
-            // Event listener for pagination links
+            // Pagination click handler
             $(document).on('click', '.pagination a', function (e) {
                 e.preventDefault();
-                pageNumber = $(this).data('page');
-                fetchData(pageNumber, pageSize);
+                var newPage = $(this).data('page');
+                if(newPage && newPage !== pageNumber) {
+                    pageNumber = newPage;
+                    $('#pagedData').html('<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin me-2"></i> Loading...</td></tr>');
+                    fetchData(pageNumber, pageSize);
+                }
             });
         });
     </script>

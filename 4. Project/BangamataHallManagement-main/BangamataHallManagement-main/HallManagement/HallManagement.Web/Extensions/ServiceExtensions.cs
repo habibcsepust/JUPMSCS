@@ -51,6 +51,7 @@ namespace Web.Extensions
             services.AddScoped<IBatchRepository, BatchRepository>();
             services.AddScoped<IRoomSeatHistoryRepository, RoomSeatHistoryRepository>();
             services.AddScoped<IPasswordResetHistoryRepository, PasswordResetHistoryRepository>();
+            services.AddScoped<IHallRepository, HallRepository>();
         }
 
         public static void ConfigureService(this IServiceCollection services)
@@ -77,6 +78,7 @@ namespace Web.Extensions
             services.AddScoped<IBatchService, BatchService>();
             services.AddScoped<IRoomSeatHistoryService, RoomSeatHistoryService>();
             services.AddScoped<IPasswordResetHistoryService, PasswordResetHistoryService>();
+            services.AddScoped<IHallService, HallService>();
         }
     }
 }

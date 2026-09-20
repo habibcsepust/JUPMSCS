@@ -30,11 +30,13 @@ namespace HallManagement.Web.Controllers
         private IOptions<_AppSettings> _settings;
         private readonly IReportService _reportService;
         private readonly IStudentService _studentService;
+        private readonly IHallService _hallService;
         private readonly ILogger<StudentController> _logger;
         private readonly BangamataHallContext _banamataHallContext;
 
         public StudentController(ILogger<StudentController> logger, IStudentService studentService, IDepartmentService departmentService, IBatchService batchService, IBloodGroupService bloodGroupService, IClassService classService,
-            IStaffService stafService, INationalityService nationalityService, IReligionService religionService, ISectionService sectionService, ISessionService sessionService, IReportService reportService, IOptions<_AppSettings> settings, BangamataHallContext bangamataHallContext)
+            IStaffService stafService, INationalityService nationalityService, IReligionService religionService, ISectionService sectionService, ISessionService sessionService, IReportService reportService, IHallService hallService
+            , IOptions<_AppSettings> settings, BangamataHallContext bangamataHallContext)
         {
             _studentService = studentService;
             _departmentService = departmentService;
@@ -47,6 +49,7 @@ namespace HallManagement.Web.Controllers
             _sectionService = sectionService;
             _sessionService = sessionService;
             _reportService = reportService;
+            _hallService = hallService;
             _settings = settings;
             _logger = logger;
             _banamataHallContext = bangamataHallContext;
@@ -91,7 +94,8 @@ namespace HallManagement.Web.Controllers
             studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
-
+            //List<SelectListItem> Hall = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            studentVm.HallList = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             return View(studentVm);
         }
 
@@ -123,6 +127,7 @@ namespace HallManagement.Web.Controllers
                     ReligionId = studentVm.ReligionId,
                     SessionId = studentVm.SessionId,
                     SectionId = studentVm.SectionId,
+                    HallId = studentVm.HallId,
                     Password = CryptoUtility.EncryptText("12345678"),
                     IsPasswordResetDone = false,
                 };
@@ -163,6 +168,7 @@ namespace HallManagement.Web.Controllers
                     studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                     studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                     studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+                    studentVm.HallList = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                     return View(studentVm);
                 }
                 catch (Exception ex)
@@ -181,6 +187,7 @@ namespace HallManagement.Web.Controllers
             studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            studentVm.HallList = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             return View(studentVm);
         }
 
@@ -217,7 +224,8 @@ namespace HallManagement.Web.Controllers
                 RegistrationYear = student.RegistrationYear,
                 ReligionId = student.ReligionId,
                 SectionId = student.SectionId,
-                SessionId = student.SessionId
+                SessionId = student.SessionId,
+                HallId = student.HallId
             };
             studentVm.BatchList = _batchService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.SessionList = _sessionService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
@@ -228,6 +236,7 @@ namespace HallManagement.Web.Controllers
             studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            studentVm.HallList = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             return View(studentVm);
         }
 
@@ -250,7 +259,7 @@ namespace HallManagement.Web.Controllers
                 studentVm.BloodGroupList = _bloodGroupService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
-                studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+                studentVm.HallList = _hallService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 return View(studentVm);
             }
             try
@@ -283,6 +292,7 @@ namespace HallManagement.Web.Controllers
                 studentDb.ReligionId = studentVm.ReligionId;
                 studentDb.SectionId = studentVm.SectionId;
                 studentDb.SessionId = studentVm.SessionId;
+                studentDb.HallId = studentVm.HallId;
                 _studentService.Update(studentDb);
                 return RedirectToAction(nameof(Index));
             }
@@ -317,7 +327,7 @@ namespace HallManagement.Web.Controllers
                 studentVm.BloodGroupList = _bloodGroupService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 studentVm.DepartmentList = _departmentService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 studentVm.StafList = _staffService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
-                studentVm.ClassList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+                studentVm.HallList = _classService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
                 return View(studentVm);
             }
         }
@@ -357,6 +367,7 @@ namespace HallManagement.Web.Controllers
                 ReligionName = student.Religion?.Name,
                 SectionName = student.Section?.Name,
                 SessionName = student.Session?.Name,
+                HallName = student.Hall?.Name,
                 EntryBy = student.EntryByNavigation?.Name,
                 EntryDate = student.EntryDate,
                 ModifiedBy = student.ModifiedByNavigation?.Name,
@@ -417,6 +428,7 @@ namespace HallManagement.Web.Controllers
                 return NotFound();
             }
         }
+
 
         private void SetDropdownViewData()
         {

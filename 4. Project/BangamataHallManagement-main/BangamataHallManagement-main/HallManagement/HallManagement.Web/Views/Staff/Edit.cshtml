@@ -4,111 +4,224 @@
     ViewData["Title"] = "Update Staff";
 }
 
-<div class="container">
-    <h4>Staff Update</h4>
-    <hr />
-    <form asp-action="Edit" id="myForm" class="form-horizontal">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Id" />
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="Name" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DesignationId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="DesignationId" class="form-control form-select" asp-items="Model.DesignationList">
-                            <option value="">--Select--</option>
-                        </select>
-                        <span asp-validation-for="DesignationId" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DepartmentId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="DepartmentId" class="form-control form-select" asp-items="Model.DepartmentList">
-                            <option value="">--Select--</option>
-                        </select>
-                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="BioLink" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="BioLink" type="url" class="form-control" />
-                        <span asp-validation-for="BioLink" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Mobile" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Mobile" class="form-control" />
-                        <span asp-validation-for="Mobile" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Email" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ActingDateFrom" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ActingDateFrom" type="date" class="form-control" />
-                        <span asp-validation-for="ActingDateFrom" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ActingDateTo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ActingDateTo" type="date" class="form-control" />
-                        <span asp-validation-for="ActingDateTo" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DisplayOrder" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="DisplayOrder" type="number" class="form-control" />
-                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="IsActive" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="IsActive" class="form-control form-select">
-                            <option value="">--Select--</option>
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                        <span asp-validation-for="IsActive" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-            <div class="offset-md-3 col-md-6">
-                <div class="row">
-                    <div class="col-sm-5 col-md-5 mt-4">
-                        <input type="submit" value="Update" class="col-md-12 btn btn-success" />
-                    </div>
-                    <div class="col-sm-5 col-md-2 mt-4">
-                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row pt-3">
-        </div>
-    </form>
-</div>
+<style>
+    /* Premium Form Styles - Corporate Blue Theme */
+    body {
+        background-color: #f4f7f6;
+    }
 
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #2a5298;
+        border-bottom: 2px solid #f0f7ff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modern-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .modern-input {
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .modern-input:focus {
+            background-color: #fff;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+        }
+
+    .modern-select {
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border-radius: 10px 0 0 10px;
+        border: 1px solid #dee2e6;
+        border-right: none;
+    }
+
+    .input-group .modern-input {
+        border-radius: 0 10px 10px 0;
+        border-left: none;
+        padding-left: 0;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card">
+
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h3 class="fw-bold mb-1"><i class="fas fa-user-edit me-2"></i> Update Staff Profile</h3>
+                    <p class="text-white-50 mb-0">Modify existing details for the administrative or hall staff member.</p>
+                </div>
+
+                <form asp-action="Edit" id="myForm">
+                    <div class="card-body p-4 p-md-5">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <!-- Hidden ID Field -->
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row g-5">
+                            <!-- Left Column: Professional Details -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-id-badge me-2"></i> Professional Details</h5>
+
+                                <div class="mb-4">
+                                    <label asp-for="Name" class="modern-label">Full Name</label>
+                                    <input asp-for="Name" class="form-control modern-input" placeholder="Enter staff name" />
+                                    <span asp-validation-for="Name" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="DepartmentId" class="modern-label">Department</label>
+                                    <select asp-for="DepartmentId" class="form-select modern-input modern-select" asp-items="Model.DepartmentList">
+                                        <option value="">-- Select Department --</option>
+                                    </select>
+                                    <span asp-validation-for="DepartmentId" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="DesignationId" class="modern-label">Designation</label>
+                                    <select asp-for="DesignationId" class="form-select modern-input modern-select" asp-items="Model.DesignationList">
+                                        <option value="">-- Select Designation --</option>
+                                    </select>
+                                    <span asp-validation-for="DesignationId" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-sm-6">
+                                        <label asp-for="DisplayOrder" class="modern-label">Display Order</label>
+                                        <input asp-for="DisplayOrder" type="number" class="form-control modern-input" placeholder="e.g. 1" />
+                                        <span asp-validation-for="DisplayOrder" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="IsActive" class="modern-label">Account Status</label>
+                                        <select asp-for="IsActive" class="form-select modern-input modern-select">
+                                            <option value="">--Select--</option>
+                                            <option value="true">Active</option>
+                                            <option value="false">Inactive</option>
+                                        </select>
+                                        <span asp-validation-for="IsActive" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Contact & Tenure -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-address-book me-2"></i> Contact & Tenure</h5>
+
+                                <div class="mb-4">
+                                    <label asp-for="Mobile" class="modern-label">Mobile Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                        <input asp-for="Mobile" class="form-control modern-input" placeholder="01XXX-XXXXXX" />
+                                    </div>
+                                    <span asp-validation-for="Mobile" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="Email" class="modern-label">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input asp-for="Email" type="email" class="form-control modern-input" placeholder="staff@example.com" />
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="BioLink" class="modern-label">Profile / Bio Link (Optional)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                        <input asp-for="BioLink" type="url" class="form-control modern-input" placeholder="https://..." />
+                                    </div>
+                                    <span asp-validation-for="BioLink" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-sm-6">
+                                        <label asp-for="ActingDateFrom" class="modern-label">Acting From</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="far fa-calendar-check"></i></span>
+                                            <input asp-for="ActingDateFrom" type="date" class="form-control modern-input" />
+                                        </div>
+                                        <span asp-validation-for="ActingDateFrom" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="ActingDateTo" class="modern-label">Acting To</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="far fa-calendar-times"></i></span>
+                                            <input asp-for="ActingDateTo" type="date" class="form-control modern-input" />
+                                        </div>
+                                        <span asp-validation-for="ActingDateTo" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Action Buttons -->
+                    <div class="action-buttons justify-content-end">
+                        <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                        <button type="button" id="resetBtn" class="btn btn-light border text-danger fw-bold px-4" style="border-radius: 10px;">
+                            <i class="fas fa-undo me-1"></i> Undo Changes
+                        </button>
+                        <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm" style="border-radius: 10px;">
+                            <i class="fas fa-save me-1"></i> Update Staff
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
@@ -116,13 +229,13 @@
     }
     <script>
         $(document).ready(function () {
-            alert(1)
+            // Fixed JS syntax error & removed alerts
             document.querySelector('#resetBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevents the default reset behavior
-                alert(2)
-                document.getElementById('myForm').reset();
-                // Additional client-side operations upon reset if needed
+                event.preventDefault();
+                if (confirm('Are you sure you want to undo your changes and reset to original values?')) {
+                    document.getElementById('myForm').reset();
+                }
             });
-        }
+        });
     </script>
 }

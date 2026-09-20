@@ -4,56 +4,165 @@
     ViewData["Title"] = "Create Establishment Charge";
 }
 
-<div class="container">
-    <h4>Establishment Charge Create</h4>
-    <hr />
-    <form asp-action="Create" id="myForm" class="form-horizontal">
-        @*     @Html.ValidationSummary()*@
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="StudentId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="StudentId" class="form-control form-select" asp-items="Model.StudentList">
-                            <option value="">--Select--</option>
-                        </select>
-                        <span asp-validation-for="StudentId" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Year" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Year" class="form-control" />
-                        <span asp-validation-for="Year" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="PaidAmount" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="PaidAmount" class="form-control" />
-                        <span asp-validation-for="PaidAmount" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-            <div class="offset-md-3 col-md-6">
-                <div class="row">
-                    <div class="col-sm-5 col-md-5 mt-4">
-                        <input type="submit" value="Create" class="col-md-12 btn btn-success" />
-                    </div>
-                    <div class="col-sm-5 col-md-2 mt-4">
-                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row pt-3">
-        </div>
-    </form>
-</div>
+<style>
+    /* Premium Form Styles */
+    body {
+        background-color: #f4f7f6;
+    }
 
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%); /* Green gradient for finance */
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #0ba360;
+        border-bottom: 2px solid #eaf6f0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modern-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .modern-input {
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .modern-input:focus {
+            background-color: #fff;
+            border-color: #3cba92;
+            box-shadow: 0 0 0 4px rgba(60, 186, 146, 0.15);
+        }
+
+    .modern-select {
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Info Box */
+    .info-panel {
+        background-color: #f8faff;
+        border: 1px solid #d8e6f8;
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card">
+
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h3 class="fw-bold mb-1"><i class="fas fa-file-invoice-dollar me-2"></i> Establishment Charge Entry</h3>
+                    <p class="text-white-50 mb-0">Record a new payment for student establishment charges.</p>
+                </div>
+
+                <form asp-action="Create" id="myForm">
+                    <div class="card-body p-4 p-md-5">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="row g-5 align-items-stretch">
+                            <!-- Left Column: Payment Form -->
+                            <div class="col-md-7">
+                                <h5 class="form-section-title"><i class="fas fa-money-check-alt me-2"></i> Payment Details</h5>
+
+                                <div class="mb-4">
+                                    <label asp-for="StudentId" class="modern-label">Target Student</label>
+                                    <select asp-for="StudentId" class="form-select modern-input modern-select" asp-items="Model.StudentList">
+                                        <option value="">-- Select Student --</option>
+                                    </select>
+                                    <span asp-validation-for="StudentId" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-sm-6">
+                                        <label asp-for="Year" class="modern-label">Payment Year</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                            <input asp-for="Year" class="form-control modern-input border-start-0 ps-0" placeholder="e.g. 2026" />
+                                        </div>
+                                        <span asp-validation-for="Year" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="PaidAmount" class="modern-label">Paid Amount (BDT)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-money-bill-wave text-muted"></i></span>
+                                            <input asp-for="PaidAmount" type="number" class="form-control modern-input border-start-0 ps-0" placeholder="0.00" />
+                                        </div>
+                                        <span asp-validation-for="PaidAmount" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Guidelines -->
+                            <div class="col-md-5">
+                                <div class="info-panel shadow-sm">
+                                    <h6 class="fw-bold text-primary mb-3"><i class="fas fa-info-circle me-2"></i> Payment Guidelines</h6>
+                                    <ul class="text-muted small ps-3 mb-0" style="line-height: 1.8;">
+                                        <li class="mb-2">Verify the <strong>Student Name</strong> carefully before recording the payment.</li>
+                                        <li class="mb-2">The <strong>Payment Year</strong> should reflect the academic year for which the charge is being cleared.</li>
+                                        <li>Once saved, this transaction will reflect immediately on the student's clearance dashboard.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Action Buttons -->
+                    <div class="action-buttons justify-content-end">
+                        <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                        <button type="button" id="resetBtn" class="btn btn-light border text-danger fw-bold px-4" style="border-radius: 10px;">
+                            <i class="fas fa-undo me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-success fw-bold px-4 shadow-sm" style="border-radius: 10px; background-color: #0ba360; border-color: #0ba360;">
+                            <i class="fas fa-save me-1"></i> Save Record
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
@@ -61,13 +170,13 @@
     }
     <script>
         $(document).ready(function () {
-            alert(1)
+            // Elegant Form Reset without annoying alerts
             document.querySelector('#resetBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevents the default reset behavior
-                alert(2)
-                document.getElementById('myForm').reset();
-                // Additional client-side operations upon reset if needed
+                event.preventDefault();
+                if (confirm('Are you sure you want to clear all fields?')) {
+                    document.getElementById('myForm').reset();
+                }
             });
-        }
+        });
     </script>
 }

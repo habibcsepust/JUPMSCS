@@ -72,6 +72,14 @@
                     </div>
                 </div>
                 <div class="form-group row pt-2">
+                    <label asp-for="HallId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
+                    <div class="col-md-5">
+                        <select asp-for="HallId" class="form-control form-select" asp-items="Model.HallList">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row pt-2">
                     <label asp-for="BatchId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
                     <div class="col-md-5">
                         <select asp-for="BatchId" class="form-control form-select" asp-items="Model.BatchList">

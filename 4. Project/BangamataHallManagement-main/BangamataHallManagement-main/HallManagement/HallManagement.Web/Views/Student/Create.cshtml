@@ -1,174 +1,272 @@
 ﻿@model HallManagement.Model.ViewModels.StudentVm
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Student Entry";
 }
 
-<div class="container">
-    <h4>Student Entry</h4>
-    <hr />
-    <form asp-action="Create" id="myForm" class="form-horizontal">
-        @*     @Html.ValidationSummary()*@
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="NameInEnglish" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="NameInEnglish" placeholder="Type in english only" class="form-control" />
-                        <span asp-validation-for="NameInEnglish" class="text-danger"></span>
-                    </div>
+<style>
+    /* Premium Form Styles */
+    body {
+        background-color: #f4f7f6;
+    }
+
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #2a5298;
+        border-bottom: 2px solid #f0f7ff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modern-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .modern-input {
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .modern-input:focus {
+            background-color: #fff;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+        }
+
+    .modern-select {
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .btn-premium {
+        padding: 12px 25px;
+        font-weight: 600;
+        border-radius: 10px;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card">
+
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h3 class="fw-bold mb-1"><i class="fas fa-user-plus me-2"></i> Student Enrollment</h3>
+                    <p class="text-white-50 mb-0">Enter the details below to register a new student into the system.</p>
                 </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Name" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Name" placeholder="Type student name here" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+
+                <form asp-action="Create" id="myForm">
+                    <div class="card-body p-4 p-md-5">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="row g-5">
+                            <!-- Left Column: Personal Information -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-address-card me-2"></i> Personal Details</h5>
+
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="modern-label">Student Name (Bengali)</label>
+                                    <input asp-for="Name" placeholder="বাংলায় নাম লিখুন" class="form-control modern-input bengali-text" />
+                                    <span asp-validation-for="Name" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="NameInEnglish" class="modern-label">Name (English)</label>
+                                    <input asp-for="NameInEnglish" placeholder="e.g. John Doe" class="form-control modern-input" />
+                                    <span asp-validation-for="NameInEnglish" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherName" class="modern-label">Father's Name</label>
+                                        <input asp-for="FatherName" class="form-control modern-input" placeholder="Father's Name" />
+                                        <span asp-validation-for="FatherName" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherName" class="modern-label">Mother's Name</label>
+                                        <input asp-for="MotherName" class="form-control modern-input" placeholder="Mother's Name" />
+                                        <span asp-validation-for="MotherName" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="DateOfBirth" class="modern-label">Date of Birth</label>
+                                    <input type="date" asp-for="DateOfBirth" class="form-control modern-input" />
+                                    <span asp-validation-for="DateOfBirth" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label asp-for="Mobile" class="modern-label">Mobile Number</label>
+                                        <input asp-for="Mobile" class="form-control modern-input" placeholder="01XXX-XXXXXX" />
+                                        <span asp-validation-for="Mobile" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="Email" class="modern-label">Email Address</label>
+                                        <input asp-for="Email" class="form-control modern-input" placeholder="student@email.com" />
+                                        <span asp-validation-for="Email" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-4">
+                                        <label asp-for="BloodGroupId" class="modern-label">Blood Group</label>
+                                        <select asp-for="BloodGroupId" class="form-select modern-input modern-select" asp-items="Model.BloodGroupList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label asp-for="ReligionId" class="modern-label">Religion</label>
+                                        <select asp-for="ReligionId" class="form-select modern-input modern-select" asp-items="Model.ReligionList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label asp-for="NationalityId" class="modern-label">Nationality</label>
+                                        <select asp-for="NationalityId" class="form-select modern-input modern-select" asp-items="Model.NationalityList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Academic Information -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-university me-2"></i> Academic Details</h5>
+
+                                <div class="mb-3">
+                                    <label asp-for="DepartmentId" class="modern-label">Department</label>
+                                    <select asp-for="DepartmentId" class="form-select modern-input modern-select" asp-items="Model.DepartmentList">
+                                        <option value="">-- Select Department --</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="HallId" class="modern-label">Hall</label>
+                                    <select asp-for="HallId" class="form-select modern-input modern-select" asp-items="Model.HallList">
+                                        <option value="">-- Select Hall --</option>
+                                    </select>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label asp-for="ClassRollNo" class="modern-label">Class Roll No</label>
+                                        <input asp-for="ClassRollNo" class="form-control modern-input" placeholder="Enter Roll" />
+                                        <span asp-validation-for="ClassRollNo" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="ClassId" class="modern-label">Program/Class</label>
+                                        <select asp-for="ClassId" class="form-select modern-input modern-select" asp-items="Model.ClassList">
+                                            <option value="">Select Class</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label asp-for="RegistrationNo" class="modern-label">Registration No</label>
+                                        <input asp-for="RegistrationNo" class="form-control modern-input" placeholder="Enter Reg No" />
+                                        <span asp-validation-for="RegistrationNo" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="RegistrationYear" class="modern-label">Reg. Year</label>
+                                        <input asp-for="RegistrationYear" class="form-control modern-input" placeholder="e.g. 2023" />
+                                        <span asp-validation-for="RegistrationYear" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-4">
+                                        <label asp-for="BatchId" class="modern-label">Batch</label>
+                                        <select asp-for="BatchId" class="form-select modern-input modern-select" asp-items="Model.BatchList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label asp-for="SectionId" class="modern-label">Section</label>
+                                        <select asp-for="SectionId" class="form-select modern-input modern-select" asp-items="Model.SectionList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label asp-for="SessionId" class="modern-label">Session</label>
+                                        <select asp-for="SessionId" class="form-select modern-input modern-select" asp-items="Model.SessionList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Decorative Info Box -->
+                                <div class="alert alert-primary border-0 bg-primary bg-opacity-10 mt-4 rounded-3 d-flex align-items-center">
+                                    <i class="fas fa-info-circle fa-2x text-primary me-3"></i>
+                                    <div class="small text-primary fw-medium">
+                                        Ensure all academic details are correctly matched with the university database before saving.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="FatherName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="FatherName" class="form-control" />
-                        <span asp-validation-for="FatherName" class="text-danger"></span>
+
+                    <!-- Footer / Action Buttons -->
+                    <div class="action-buttons justify-content-end">
+                        <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                        <button type="reset" id="resetBtn" class="btn btn-light btn-premium border text-danger">
+                            <i class="fas fa-undo me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-success btn-premium">
+                            <i class="fas fa-save me-1"></i> Save Student
+                        </button>
                     </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="MotherName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="MotherName" class="form-control" />
-                        <span asp-validation-for="MotherName" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ClassRollNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ClassRollNo" class="form-control" />
-                        <span asp-validation-for="ClassRollNo" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="RegistrationNo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="RegistrationNo" class="form-control" />
-                        <span asp-validation-for="RegistrationNo" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ClassId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="ClassId" class="form-control form-select" asp-items="Model.ClassList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DepartmentId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="DepartmentId" class="form-control form-select" asp-items="Model.DepartmentList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="BatchId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="BatchId" class="form-control form-select" asp-items="Model.BatchList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="SectionId" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="SectionId" class="form-control form-select" asp-items="Model.SectionList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="SessionId" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="SessionId" class="form-control form-select" asp-items="Model.SessionList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="RegistrationYear" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="RegistrationYear" class="form-control" />
-                        <span asp-validation-for="RegistrationYear" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DateOfBirth" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input type="date" asp-for="DateOfBirth" class="form-control" />
-                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Mobile" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Mobile" class="form-control" />
-                        <span asp-validation-for="Mobile" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Email" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ReligionId" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="ReligionId" class="form-control form-select" asp-items="Model.ReligionList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="NationalityId" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="NationalityId" class="form-control form-select" asp-items="Model.NationalityList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="BloodGroupId" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <select asp-for="BloodGroupId" class="form-control form-select" asp-items="Model.BloodGroupList">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="offset-md-4 col-md-6">
-                <div class="row">
-                    <div class="col-sm-5 col-md-5 mt-4">
-                        <input type="submit" value="Create" class="col-md-12 btn btn-success" />
-                    </div>
-                    <div class="col-sm-5 col-md-5 mt-4">
-                        <input type="reset" id="resetBtn" class="col-md-12 btn btn-danger" value="Reset" />
-                    </div>
-                    <div class="col-sm-5 col-md-2 mt-4">
-                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="row pt-3">
-        </div>
-    </form>
+    </div>
 </div>
-
-
 
 @section Scripts {
     @{
@@ -176,10 +274,12 @@
     }
     <script>
         $(document).ready(function () {
+            // Elegant Form Reset
             document.querySelector('#resetBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevents the default reset behavior
-                document.getElementById('myForm').reset();
-                // Additional client-side operations upon reset if needed
+                event.preventDefault();
+                if (confirm('Are you sure you want to clear all fields?')) {
+                    document.getElementById('myForm').reset();
+                }
             });
         })
     </script>

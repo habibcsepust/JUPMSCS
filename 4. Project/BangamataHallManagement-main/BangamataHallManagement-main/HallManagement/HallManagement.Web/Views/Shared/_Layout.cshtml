@@ -60,10 +60,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark modern-navbar fixed-top py-2">
         <div class="container">
-           @*  <a class="navbar-brand d-flex align-items-center" href="/Home/Index">
-                <img height="40" class="me-2" src="~/images/logo.png" alt="Logo" />
-                <span class="fs-5">University Hall Management System</span>
-            </a> *@
+       
             <a class="navbar-brand d-flex align-items-center" href="@(!string.IsNullOrEmpty(Context.Session.GetString("Name")) ? "/Dashboard/Index" : "/Home/Index")">
                 <img height="40" class="me-2" src="~/images/logo.png" alt="Logo" />
                 <span class="fs-5">University Hall Management System</span>

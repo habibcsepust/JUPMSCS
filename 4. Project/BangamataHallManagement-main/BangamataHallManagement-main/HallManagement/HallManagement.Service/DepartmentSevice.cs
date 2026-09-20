@@ -50,5 +50,7 @@ namespace HallManagement.Service
                 return false;
             return _departmentRepository.Delete(department);              
         }
+        
+
     }
 }

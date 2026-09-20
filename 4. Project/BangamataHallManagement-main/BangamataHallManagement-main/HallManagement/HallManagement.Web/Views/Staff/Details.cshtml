@@ -4,121 +4,281 @@
     ViewData["Title"] = "Staff Details";
 }
 
-<div class="container">
-    <h4>Staff Details</h4>
-    <hr />
-    <form asp-action="" class="form-horizontal">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="Name" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Name" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DesignationName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="DesignationName" class="form-control form-select" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DepartmentName" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="DepartmentName" class="form-control form-select" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Mobile" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Mobile" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="Email" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="Email" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ActingDateFrom" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ActingDateFrom" type="date" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ActingDateTo" class="col-md-6 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ActingDateTo" type="date" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row pt-2">
-                    <label asp-for="EntryBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="EntryBy" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="EntryDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="EntryDate" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ModifyBy" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ModifyBy" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="ModifyDate" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="ModifyDate" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="DisplayOrder" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="DisplayOrder" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="form-group row pt-2">
-                    <label asp-for="IsActive" class="col-md-3 col-form-label text-md-end fw-bold"></label>
-                    <div class="col-md-5">
-                        <input asp-for="IsActive" class="form-control" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-            <div class="offset-md-3 col-md-6">
-                <div class="row">
-                    <div class="col-sm-5 col-md-2 mt-4">
-                        <a asp-action="Index" class="pt-2 link-primary">Back to List</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row pt-3">
-        </div>
-    </form>
-</div>
+<style>
+    /* Premium Details View Styles - Corporate Blue Theme */
+    body {
+        background-color: #f4f7f6;
+    }
 
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #2a5298;
+        border-bottom: 2px solid #f0f7ff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Data Display Styles */
+    .data-group {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .data-group:hover {
+            background-color: #fff;
+            border-color: #2a5298;
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.08);
+        }
+
+    .data-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .data-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2b2f32;
+        margin: 0;
+    }
+
+    /* Audit Trail Panel */
+    .audit-panel {
+        background-color: #f8faff;
+        border: 1px solid #d8e6f8;
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+    }
+
+    .audit-item {
+        border-left: 2px solid #b8daff;
+        padding-left: 15px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .audit-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #007bff;
+        }
+
+        .audit-item.modify::before {
+            background-color: #ffc107;
+        }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Print specific styles */
+    @@media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #printableArea, #printableArea * {
+            visibility: visible;
+        }
+
+        #printableArea {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .action-buttons {
+            display: none !important;
+        }
+
+        .premium-form-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card" id="printableArea">
+
+                <!-- Header -->
+                <div class="form-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-1"><i class="fas fa-id-card me-2"></i> Staff Profile Details</h3>
+                            <p class="text-white-50 mb-0">Detailed view of the registered staff member.</p>
+                        </div>
+
+                        <!-- Status Badge in Header (Fixed string comparison) -->
+                        @if (Model.IsActive == "True" || Model.IsActive == "true" || Model.IsActive == "Yes")
+                        {
+                            <span class="badge bg-success border border-white px-3 py-2" style="font-size: 1rem;">
+                                <i class="fas fa-check-circle me-1"></i> Active User
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary border border-white px-3 py-2" style="font-size: 1rem;">
+                                <i class="fas fa-ban me-1"></i> Inactive User
+                            </span>
+                        }
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="row g-5 align-items-stretch">
+
+                        <!-- Left Column: Primary Details -->
+                        <div class="col-md-7">
+                            <h5 class="form-section-title"><i class="fas fa-user-tie me-2"></i> Professional Information</h5>
+
+                            <div class="data-group">
+                                <span class="data-label">Full Name</span>
+                                <p class="data-value fw-bold text-primary">@(string.IsNullOrEmpty(Model.Name) ? "N/A" : Model.Name)</p>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Department</span>
+                                        <p class="data-value">@(string.IsNullOrEmpty(Model.DepartmentName) ? "N/A" : Model.DepartmentName)</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Designation</span>
+                                        <p class="data-value">@(string.IsNullOrEmpty(Model.DesignationName) ? "N/A" : Model.DesignationName)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="form-section-title mt-4"><i class="fas fa-address-book me-2"></i> Contact & Tenure</h5>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Mobile Number</span>
+                                        <p class="data-value"><i class="fas fa-phone-alt text-muted me-2 small"></i>@(string.IsNullOrEmpty(Model.Mobile) ? "N/A" : Model.Mobile)</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Email Address</span>
+                                        <p class="data-value"><i class="fas fa-envelope text-muted me-2 small"></i>@(string.IsNullOrEmpty(Model.Email) ? "N/A" : Model.Email)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Acting From</span>
+                                        <p class="data-value">
+                                            @(Model.ActingDateFrom != null ? Model.ActingDateFrom.Value.ToString("dd MMM yyyy") : "N/A")
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="data-group">
+                                        <span class="data-label">Acting To</span>
+                                        <p class="data-value">
+                                            @(Model.ActingDateTo != null ? Model.ActingDateTo.Value.ToString("dd MMM yyyy") : "Present")
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Audit Trail -->
+                        <div class="col-md-5">
+                            <div class="audit-panel shadow-sm">
+                                <h6 class="fw-bold text-primary mb-4"><i class="fas fa-shield-alt me-2"></i> System Audit Trail</h6>
+
+                                <div class="audit-item">
+                                    <span class="data-label text-primary">Created By</span>
+                                    <p class="mb-1 fw-bold text-dark">@(string.IsNullOrEmpty(Model.EntryBy) ? "System Administrator" : Model.EntryBy)</p>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> @(Model.EntryDate != null ? Model.EntryDate.Value.ToString("dd MMM yyyy, hh:mm tt") : "N/A")</small>
+                                </div>
+
+                                <div class="audit-item modify">
+                                    <span class="data-label text-warning">Last Modified By</span>
+                                    <p class="mb-1 fw-bold text-dark">@(string.IsNullOrEmpty(Model.ModifyBy) ? "No modifications" : Model.ModifyBy)</p>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> @(Model.ModifyDate != null ? Model.ModifyDate.Value.ToString("dd MMM yyyy, hh:mm tt") : "N/A")</small>
+                                </div>
+
+                                <hr class="my-4 border-secondary opacity-25">
+
+                                <div class="data-group bg-white mb-0">
+                                    <span class="data-label">Display Order Preference</span>
+                                    <p class="data-value text-center fs-4 fw-bold text-primary">@Model.DisplayOrder</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer / Action Buttons -->
+                <div class="action-buttons justify-content-end">
+                    <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="button" onclick="window.print()" class="btn btn-primary fw-bold px-4 shadow-sm" style="border-radius: 10px;">
+                        <i class="fas fa-print me-1"></i> Print Profile
+                    </button>
+                    <!-- Adjust asp-route-id if your model ID property is named differently (e.g. Model.Id) -->
+                   @*  <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning fw-bold px-4 shadow-sm text-dark" style="border-radius: 10px;">
+                        <i class="fas fa-pen me-1"></i> Edit Profile
+                    </a> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        $(document).ready(function () {
-            alert(1)
-            document.querySelector('#resetBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevents the default reset behavior
-                alert(2)
-                document.getElementById('myForm').reset();
-                // Additional client-side operations upon reset if needed
-            });
-        }
-    </script>
 }
