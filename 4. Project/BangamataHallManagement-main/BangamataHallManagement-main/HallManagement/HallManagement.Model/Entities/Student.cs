@@ -59,6 +59,8 @@ public partial class Student
 
     public int? HallId { get; set; }
 
+    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+
     public virtual Batch? Batch { get; set; }
 
     public virtual BloodGroup? BloodGroup { get; set; }

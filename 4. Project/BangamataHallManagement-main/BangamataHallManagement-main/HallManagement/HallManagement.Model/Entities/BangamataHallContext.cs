@@ -15,6 +15,8 @@ public partial class BangamataHallContext : DbContext
     {
     }
 
+    public virtual DbSet<Application> Applications { get; set; }
+
     public virtual DbSet<Batch> Batches { get; set; }
 
     public virtual DbSet<BloodGroup> BloodGroups { get; set; }
@@ -65,10 +67,43 @@ public partial class BangamataHallContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-JONK7CV;Database=HallMgmt;Trusted_Connection=True;TrustServerCertificate=True;");
+//        => optionsBuilder.UseSqlServer("Server=DESKTOP-JONK7CV;Database=HallMgmt;Trusted_Connection=True; TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Application>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Applicat__3214EC07252625A2");
+
+            entity.ToTable("Application");
+
+            entity.Property(e => e.ApplicationDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.ApprovedDate).HasColumnType("datetime");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.PreferredRoomType).HasMaxLength(50);
+            entity.Property(e => e.ProcessedDate).HasColumnType("datetime");
+            entity.Property(e => e.Reason).HasMaxLength(500);
+            entity.Property(e => e.RejectedDate).HasColumnType("datetime");
+            entity.Property(e => e.Remarks).HasMaxLength(500);
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("('Pending')");
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Hall).WithMany(p => p.Applications)
+                .HasForeignKey(d => d.HallId)
+                .HasConstraintName("FK_Application_Hall");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.Applications)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Application_Student");
+        });
+
         modelBuilder.Entity<Batch>(entity =>
         {
             entity.ToTable("Batch");

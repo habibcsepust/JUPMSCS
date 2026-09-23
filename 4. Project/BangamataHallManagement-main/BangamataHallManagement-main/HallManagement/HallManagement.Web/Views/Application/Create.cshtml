@@ -1,0 +1,202 @@
+﻿@model HallManagement.Model.Entities.Application
+
+@{
+    ViewData["Title"] = "Create Application";
+}
+
+<style>
+    /* Premium Form Styles - Corporate Blue Theme */
+    body {
+        background-color: #f4f7f6;
+    }
+
+    .premium-form-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        color: #2a5298;
+        border-bottom: 2px solid #f0f7ff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modern-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .modern-input {
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .modern-input:focus {
+            background-color: #fff;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+        }
+
+    .modern-select {
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        background: #f8f9fa;
+        padding: 20px 40px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Info Box */
+    .info-panel {
+        background-color: #f8faff;
+        border: 1px solid #d8e6f8;
+        border-radius: 15px;
+        padding: 20px;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="premium-form-card">
+
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h3 class="fw-bold mb-1"><i class="fas fa-file-signature me-2"></i> Submit Hall Application</h3>
+                    <p class="text-white-50 mb-0">Apply for residential campus accommodation securely.</p>
+                </div>
+
+                <form asp-action="Create" method="post" id="myForm">
+                    <div class="card-body p-4 p-md-5">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="row g-5">
+                            <!-- Left Column: Primary Details -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-user-graduate me-2"></i> Application Details</h5>
+
+                                <div class="mb-4">
+                                    <label asp-for="StudentId" class="modern-label">
+                                        Student Profile <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="StudentId" class="form-select modern-input modern-select" asp-items="@ViewBag.StudentList">
+                                        <option value="">-- Select Target Student --</option>
+                                    </select>
+                                    <span asp-validation-for="StudentId" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="HallId" class="modern-label">Preferred Hall</label>
+                                    <select asp-for="HallId" class="form-select modern-input modern-select" asp-items="@ViewBag.HallList">
+                                        <option value="">-- Select Preferred Hall --</option>
+                                    </select>
+                                    <span asp-validation-for="HallId" class="text-danger small fw-bold mt-1 d-block"></span>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-sm-6">
+                                        <label asp-for="PreferredRoomType" class="modern-label">Room Type</label>
+                                        <select asp-for="PreferredRoomType" class="form-select modern-input modern-select">
+                                            <option value="">-- Select --</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Double">Double</option>
+                                            <option value="Triple">Triple</option>
+                                        </select>
+                                        <span asp-validation-for="PreferredRoomType" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="ApplicationDate" class="modern-label">Submission Date</label>
+                                        <input asp-for="ApplicationDate" type="date" class="form-control modern-input" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+                                        <span asp-validation-for="ApplicationDate" class="text-danger small fw-bold mt-1 d-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Statement & Information -->
+                            <div class="col-md-6">
+                                <h5 class="form-section-title"><i class="fas fa-comment-dots me-2"></i> Statement & Rules</h5>
+
+                                <div class="mb-4">
+                                    <label asp-for="Reason" class="modern-label">Reason for Accommodation</label>
+                                    <textarea asp-for="Reason" class="form-control modern-input" rows="5" maxlength="500" placeholder="Please elaborate on why you require hall accommodation..."></textarea>
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <span asp-validation-for="Reason" class="text-danger small fw-bold"></span>
+                                        <small class="text-muted fw-bold">Max 500 characters</small>
+                                    </div>
+                                </div>
+
+                                <!-- Information Panel -->
+                                <div class="info-panel shadow-sm border-start border-info border-4 mt-4">
+                                    <h6 class="fw-bold text-info mb-3"><i class="fas fa-info-circle me-2"></i> Application Process</h6>
+                                    <ul class="text-muted small ps-3 mb-0" style="line-height: 1.8;">
+                                        <li class="mb-2">All new applications are initially marked with a <strong><span class="badge bg-warning text-dark">Pending</span></strong> status.</li>
+                                        <li class="mb-2">The hall administration will review your preferred room type and reason.</li>
+                                        <li>You will be notified once the seat allocation is confirmed.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Action Buttons -->
+                    <div class="action-buttons justify-content-end">
+                        <a asp-action="Index" class="text-decoration-none fw-bold text-muted me-auto">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                        <button type="button" id="resetBtn" class="btn btn-light border text-danger fw-bold px-4" style="border-radius: 10px;">
+                            <i class="fas fa-undo me-1"></i> Clear Form
+                        </button>
+                        <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm" style="border-radius: 10px;">
+                            <i class="fas fa-paper-plane me-1"></i> Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            // Elegant Form Reset
+            document.querySelector('#resetBtn').addEventListener('click', function (event) {
+                event.preventDefault();
+                if (confirm('Are you sure you want to clear your application data?')) {
+                    document.getElementById('myForm').reset();
+                }
+            });
+        });
+    </script>
+}
